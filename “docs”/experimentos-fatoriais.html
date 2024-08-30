@@ -650,20 +650,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.3.1</span> Outros Gráficos!<a href="experimentos-fatoriais.html#outros-gráficos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="experimentos-fatoriais.html#cb146-1" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;)</span></span>
 <span id="cb146-2"><a href="experimentos-fatoriais.html#cb146-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## ── Attaching core tidyverse packages ─────────────────
+<pre><code>## ── Attaching core tidyverse packages ────────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ## ✔ lubridate 1.9.3     ✔ tibble    3.2.1
 ## ✔ purrr     1.0.2     ✔ tidyr     1.3.1
-## ── Conflicts ──────────────── tidyverse_conflicts() ──
+## ── Conflicts ──────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="experimentos-fatoriais.html#cb148-1" tabindex="-1"></a>dados6 <span class="ot">&lt;-</span> dados5 <span class="sc">%&gt;%</span></span>
 <span id="cb148-2"><a href="experimentos-fatoriais.html#cb148-2" tabindex="-1"></a>  <span class="fu">group_by</span>(mat, temp) <span class="sc">%&gt;%</span></span>
 <span id="cb148-3"><a href="experimentos-fatoriais.html#cb148-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(y,<span class="at">na.rm=</span>T))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;mat&#39;. You can
-## override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;mat&#39;. You can override using the `.groups`
+## argument.</code></pre>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="experimentos-fatoriais.html#cb150-1" tabindex="-1"></a>dados6</span></code></pre></div>
 <pre><code>## # A tibble: 9 × 3
 ## # Groups:   mat [3]

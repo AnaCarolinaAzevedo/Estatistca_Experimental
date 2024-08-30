@@ -331,10 +331,9 @@ Ao nível de 5% de significância, há evidência de que a resistência entre os
 ## ratio of variances 
 ##                1.5</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="teste-t-para-duas-médias.html#cb21-1" tabindex="-1"></a>gginference<span class="sc">::</span><span class="fu">ggvartest</span>(<span class="fu">var.test</span>(c1, c2, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>))</span></code></pre></div>
-<pre><code>## Warning in geom_text(aes(x = ub, y = -0.025), label = round(ub, 3), vjust = 0.3): All aesthetics have length 1, but the data has 10000
-## rows.
-## ℹ Please consider using `annotate()` or provide this
-##   layer with data containing a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ub, y = -0.025), label = round(ub, 3), vjust = 0.3): All aesthetics have length 1, but the data has 10000 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data containing a
+##   single row.</code></pre>
 <p><img src="_main_files/figure-html/vartest-1.png" width="672" /></p>
 </div>
 <div id="teste-t-para-variâncias-homocedásticas" class="section level3 hasAnchor" number="2.2.5">
@@ -361,8 +360,7 @@ Ao nível de 5% de significância, há evidência de que a resistência entre os
 <div id="gráfico-do-teste-t" class="section level3 hasAnchor" number="2.2.6">
 <h3><span class="header-section-number">2.2.6</span> Gráfico do teste t<a href="teste-t-para-duas-médias.html#gráfico-do-teste-t" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="teste-t-para-duas-médias.html#cb26-1" tabindex="-1"></a>gginference<span class="sc">::</span><span class="fu">ggttest</span>(<span class="fu">t.test</span>(c1 , c2 ,<span class="at">alternative=</span><span class="st">&#39;two.sided&#39;</span>, <span class="at">var.equal=</span><span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## Warning: `geom_vline()`: Ignoring `data` because `xintercept`
-## was provided.</code></pre>
+<pre><code>## Warning: `geom_vline()`: Ignoring `data` because `xintercept` was provided.</code></pre>
 <p><img src="_main_files/figure-html/graf-1.png" width="672" /></p>
 </div>
 </div>
@@ -424,10 +422,9 @@ Ao nível de 5% de significância, há evidência de que o concreto 1 é mais re
 ## ratio of variances 
 ##           33.33333</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="teste-t-para-duas-médias.html#cb44-1" tabindex="-1"></a> gginference<span class="sc">::</span><span class="fu">ggvartest</span>(<span class="fu">var.test</span>(c<span class="fl">.2</span> ,c<span class="fl">.1</span>,<span class="at">alternative=</span><span class="st">&#39;greater&#39;</span>))</span></code></pre></div>
-<pre><code>## Warning in geom_text(aes(x = ub, y = -0.025), label = round(ub, 3), vjust = 0.3): All aesthetics have length 1, but the data has 10000
-## rows.
-## ℹ Please consider using `annotate()` or provide this
-##   layer with data containing a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ub, y = -0.025), label = round(ub, 3), vjust = 0.3): All aesthetics have length 1, but the data has 10000 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data containing a
+##   single row.</code></pre>
 <p><img src="_main_files/figure-html/vartest1-1.png" width="672" /></p>
 </div>
 <div id="teste-t-para-variâncias-heterocedásticas" class="section level3 hasAnchor" number="2.3.5">
@@ -455,10 +452,9 @@ Ao nível de 5% de significância, há evidência de que o concreto 1 é mais re
 <h3><span class="header-section-number">2.3.6</span> Gráfico do teste t<a href="teste-t-para-duas-médias.html#gráfico-do-teste-t-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="teste-t-para-duas-médias.html#cb49-1" tabindex="-1"></a><span class="fu">library</span>(gginference)</span>
 <span id="cb49-2"><a href="teste-t-para-duas-médias.html#cb49-2" tabindex="-1"></a>gginference<span class="sc">::</span><span class="fu">ggttest</span>(<span class="fu">t.test</span>(c<span class="fl">.1</span> , c<span class="fl">.2</span> ,<span class="at">alternative=</span><span class="st">&#39;greater&#39;</span>, <span class="at">var.equal=</span><span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## Warning in geom_text(aes(x = ub, y = -0.02), label = round(ub, 3), vjust = 0.3): All aesthetics have length 1, but the data has 10000
-## rows.
-## ℹ Please consider using `annotate()` or provide this
-##   layer with data containing a single row.</code></pre>
+<pre><code>## Warning in geom_text(aes(x = ub, y = -0.02), label = round(ub, 3), vjust = 0.3): All aesthetics have length 1, but the data has 10000 rows.
+## ℹ Please consider using `annotate()` or provide this layer with data containing a
+##   single row.</code></pre>
 <p><img src="_main_files/figure-html/graf1-1.png" width="672" /></p>
 
 </div>
