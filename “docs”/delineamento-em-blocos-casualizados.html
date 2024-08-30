@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 4 Delineamento em Blocos Casualizados | Apostila de Estatistica Experimental</title>
+  <meta name="description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 4 Delineamento em Blocos Casualizados | Apostila de Estatistica Experimental" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 4 Delineamento em Blocos Casualizados | Apostila de Estatistica Experimental" />
+  
+  <meta name="twitter:description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
+  
+
+<meta name="author" content="Pedro Ivo" />
+
+
+<meta name="date" content="2024-08-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="anova---delineamento-inteiramento-casualizado.html"/>
+<link rel="next" href="contrastes-tcm.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução a Estatistica Experimental</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#porque-utilizar-a-estatistica-no-cotidiano"><i class="fa fa-check"></i><b>1.1</b> Porque utilizar a Estatistica no cotidiano</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#sobre-a-apostila"><i class="fa fa-check"></i><b>1.2</b> Sobre a apostila</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html"><i class="fa fa-check"></i><b>2</b> Teste t Para Duas Médias</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-de-student-para-dois-grupos-ou-médias-independentes"><i class="fa fa-check"></i><b>2.1</b> Teste t de Student para dois grupos ou médias independentes</a></li>
+<li class="chapter" data-level="2.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#a.variâncias-homocedásticas"><i class="fa fa-check"></i><b>2.2</b> A.Variâncias Homocedásticas</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#análise-exploratória"><i class="fa fa-check"></i><b>2.2.1</b> Análise Exploratória</a></li>
+<li class="chapter" data-level="2.2.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-box-plot"><i class="fa fa-check"></i><b>2.2.2</b> Gráfico Box-Plot</a></li>
+<li class="chapter" data-level="2.2.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#pressuposição-de-normalidade"><i class="fa fa-check"></i><b>2.2.3</b> Pressuposição de Normalidade</a></li>
+<li class="chapter" data-level="2.2.4" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-de-homogeneidade-das-variâncias"><i class="fa fa-check"></i><b>2.2.4</b> Teste de Homogeneidade das Variâncias</a></li>
+<li class="chapter" data-level="2.2.5" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-para-variâncias-homocedásticas"><i class="fa fa-check"></i><b>2.2.5</b> Teste t para variâncias homocedásticas</a></li>
+<li class="chapter" data-level="2.2.6" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-do-teste-t"><i class="fa fa-check"></i><b>2.2.6</b> Gráfico do teste t</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#b.-variâncias-heterocedásticas"><i class="fa fa-check"></i><b>2.3</b> B. Variâncias Heterocedásticas</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#análise-exploratória-1"><i class="fa fa-check"></i><b>2.3.1</b> Análise Exploratória</a></li>
+<li class="chapter" data-level="2.3.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-box-plot-1"><i class="fa fa-check"></i><b>2.3.2</b> Gráfico Box-Plot</a></li>
+<li class="chapter" data-level="2.3.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#pressuposição-de-normalidade-1"><i class="fa fa-check"></i><b>2.3.3</b> Pressuposição de Normalidade</a></li>
+<li class="chapter" data-level="2.3.4" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-de-homogeneidade-das-variâncias-1"><i class="fa fa-check"></i><b>2.3.4</b> Teste de Homogeneidade das Variâncias</a></li>
+<li class="chapter" data-level="2.3.5" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-para-variâncias-heterocedásticas"><i class="fa fa-check"></i><b>2.3.5</b> Teste t para variâncias heterocedásticas</a></li>
+<li class="chapter" data-level="2.3.6" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-do-teste-t-1"><i class="fa fa-check"></i><b>2.3.6</b> Gráfico do teste t</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html"><i class="fa fa-check"></i><b>3</b> ANOVA - Delineamento Inteiramento Casualizado</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#introdução"><i class="fa fa-check"></i><b>3.1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#interpretação"><i class="fa fa-check"></i><b>3.1.1</b> Interpretação</a></li>
+<li class="chapter" data-level="3.1.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#dados"><i class="fa fa-check"></i><b>3.1.2</b> Dados</a></li>
+<li class="chapter" data-level="3.1.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#input-de-dados"><i class="fa fa-check"></i><b>3.1.3</b> Input de Dados</a></li>
+<li class="chapter" data-level="3.1.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#estrutura-do-data-frame"><i class="fa fa-check"></i><b>3.1.4</b> Estrutura do Data-Frame</a></li>
+<li class="chapter" data-level="3.1.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-gráfica-exploratória"><i class="fa fa-check"></i><b>3.1.5</b> Análise Gráfica Exploratória</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico"><i class="fa fa-check"></i><b>3.2</b> Modelo Estatístico</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico-1"><i class="fa fa-check"></i><b>3.2.1</b> Modelo Estatístico (1)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico-2"><i class="fa fa-check"></i><b>3.2.2</b> Modelo Estatístico (2)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância"><i class="fa fa-check"></i><b>3.3</b> Análise de Variância</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-1"><i class="fa fa-check"></i><b>3.3.1</b> Análise de Variância (1)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-2"><i class="fa fa-check"></i><b>3.3.2</b> Análise de Variância (2)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-3"><i class="fa fa-check"></i><b>3.3.3</b> Análise de Variância (3)</a></li>
+<li class="chapter" data-level="3.3.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-4"><i class="fa fa-check"></i><b>3.3.4</b> Análise de Variância (4)</a></li>
+<li class="chapter" data-level="3.3.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-5"><i class="fa fa-check"></i><b>3.3.5</b> Análise de Variância (5)</a></li>
+<li class="chapter" data-level="3.3.6" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-6"><i class="fa fa-check"></i><b>3.3.6</b> Análise de Variância (6)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições"><i class="fa fa-check"></i><b>3.4</b> Análise das Pressuposições</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-1"><i class="fa fa-check"></i><b>3.4.1</b> Análise das Pressuposições (1)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-2"><i class="fa fa-check"></i><b>3.4.2</b> Análise das Pressuposições (2)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-3"><i class="fa fa-check"></i><b>3.4.3</b> Análise das Pressuposições (3)</a></li>
+<li class="chapter" data-level="3.4.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-4"><i class="fa fa-check"></i><b>3.4.4</b> Análise das Pressuposições (4)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#coeficiente-de-variação-experimental"><i class="fa fa-check"></i><b>3.5</b> Coeficiente de Variação Experimental</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html"><i class="fa fa-check"></i><b>4</b> Delineamento em Blocos Casualizados</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#introdução-1"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
+<li class="chapter" data-level="4.2" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#casualização-em-dbc"><i class="fa fa-check"></i><b>4.2</b> Casualização em DBC</a></li>
+<li class="chapter" data-level="4.3" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#modelo-estatístico-3"><i class="fa fa-check"></i><b>4.3</b> Modelo Estatístico</a></li>
+<li class="chapter" data-level="4.4" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#análise-de-variância-7"><i class="fa fa-check"></i><b>4.4</b> Análise de Variância</a></li>
+<li class="chapter" data-level="4.5" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#análise-no-r"><i class="fa fa-check"></i><b>4.5</b> Análise no R</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="contrastes-tcm.html"><a href="contrastes-tcm.html"><i class="fa fa-check"></i><b>5</b> Contrastes TCM</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="contrastes-tcm.html"><a href="contrastes-tcm.html#introdução-2"><i class="fa fa-check"></i><b>5.1</b> Introdução</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="regressão-linear.html"><a href="regressão-linear.html"><i class="fa fa-check"></i><b>6</b> Regressão Linear</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="regressão-linear.html"><a href="regressão-linear.html#regressão-linear-simples"><i class="fa fa-check"></i><b>6.1</b> Regressão Linear Simples</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="regressão-linear.html"><a href="regressão-linear.html#observação-única-para-cada-nível-da-variável-x"><i class="fa fa-check"></i><b>6.1.1</b> Observação única para cada nível da variável X</a></li>
+<li class="chapter" data-level="6.1.2" data-path="regressão-linear.html"><a href="regressão-linear.html#mais-de-uma-observação-repetições-para-cada-nível-da-variável-x"><i class="fa fa-check"></i><b>6.1.2</b> Mais de uma observação (repetições) para cada nível da variável X</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html"><i class="fa fa-check"></i><b>7</b> Experimentos Fatoriais</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#introdução-3"><i class="fa fa-check"></i><b>7.1</b> Introdução</a></li>
+<li class="chapter" data-level="7.2" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#tipos-de-efeitos"><i class="fa fa-check"></i><b>7.2</b> Tipos de Efeitos</a></li>
+<li class="chapter" data-level="7.3" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#casualização-em-experimentos-fatoriais"><i class="fa fa-check"></i><b>7.3</b> Casualização em Experimentos Fatoriais</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#outros-gráficos"><i class="fa fa-check"></i><b>7.3.1</b> Outros Gráficos!</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#efeito-do-teor-de-celulose-na-resistência-à-tração-em-embalagens-de-papel"><i class="fa fa-check"></i><b>7.4</b> Efeito do teor de celulose na resistência à tração em embalagens de papel</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#introdução-4"><i class="fa fa-check"></i><b>7.4.1</b> Introdução</a></li>
+<li class="chapter" data-level="7.4.2" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#materiais-e-métodos"><i class="fa fa-check"></i><b>7.4.2</b> Materiais e Métodos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Apostila de Estatistica Experimental</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="delineamento-em-blocos-casualizados" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Delineamento em Blocos Casualizados<a href="delineamento-em-blocos-casualizados.html#delineamento-em-blocos-casualizados" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introdução-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introdução<a href="delineamento-em-blocos-casualizados.html#introdução-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>O Delineamento em Blocos Casualizados (DBC) envolve os
+seguintes princípios experiemntais:
+<ul>
+<li>Repetição</li>
+<li>Casualização</li>
+<li>Blocagem</li>
+</ul></li>
+<li>Blocagem (Controle da Casualização):
+<ul>
+<li>Também conhecido como “Controle Local”</li>
+<li>Aplicado quando as condições experimentais não são homogêneas em todas as unidades experimentais</li>
+<li>Ou seja, existe algum nível de variação sistemática (fatores externos) que pode ser reconhecida no experimento</li>
+</ul></li>
+</ul>
+<p>Exemplos:</p>
+<ol style="list-style-type: decimal">
+<li><p>Na Agronomia:
+Em estudos que são feitos a campo. Blocos são faixas do solo que apresentam maior homogeneidade.
+(Blocagem no espaço, como controle local).</p></li>
+<li><p>Na indústria:
+Diferentes lotes de produção podem apresentar variações (matéria-prima, máquinas diferentes da unidade de produção, etc)
+Controle de qualidade da produção.
+(Blocagem em termos de lotes de produção)</p></li>
+<li><p>No laboratório:
+Variações de material experimental, coletas, reagentes, etc.
+Em ensaios clínicos (idade, peso, sexo, etc).
+Dias diferentes de análise.</p></li>
+</ol>
+<ul>
+<li>Nestas condições o DBC torna-se mais eficiente do que o DIC:
+<ul>
+<li>Redução de Variabilidade Residual: Uma vez que as UE são organizadas em blocos homogêneos</li>
+<li>Controle da Variação Sistemática: O efeito de blocos é computado no experimento e no modelo de análise</li>
+<li>Aumento da Precisão: As comparações entre tratamentos são realizadas com maior precisão uma vez que a diferença entre os blocos é controlada</li>
+</ul></li>
+</ul>
+</div>
+<div id="casualização-em-dbc" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Casualização em DBC<a href="delineamento-em-blocos-casualizados.html#casualização-em-dbc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>A casualização é realizada de forma independente em cada bloco</p></li>
+<li><p>Todos os tratamentos devem aparecer em cada bloco</p></li>
+<li><p>n° blocos = n° repetições</p></li>
+<li><p>Atenção! Se não é possível alocar todos os tratamentos dentro dos blocos temos um Delineamento de Blocos Incompletos</p>
+<ul>
+<li>Não será abordado nesta disciplina!</li>
+</ul></li>
+</ul>
+<p><strong>Exemplo</strong></p>
+<p>Suponha um experimento com três tratamentos e cinco repetições. No DBC cada bloco constituirá uma repetição. Em cada bloco deverá constar uma repetição de cada tratamento. Dentro de cada bloco os tratamentos deverão ser dispostos de forma casualizada. Esquematicamente o DBC fica caracterizado conforme a
+figura abaixo:</p>
+<p><img src="imagens/dbc1.png" width="100%" /></p>
+<p><strong>Exemplo2</strong></p>
+<p>Os dados abaixo referem-se a um experimento instalado segundo o DBC. Foram testados 5 produtos comerciais para suprir a deficiência nutricional em caprinos. As unidades experimentais foram separadas em 3 grupos segundo a idade dos animais. Dentro de cada grupo os produtos foram distribuídos de maneira casualizada. Os resultados obtidos são expressos em ppm de nutriente/ml de sangue. Pede-se proceder a ANOVA e verificar a significância dos efeitos de tratamentos (Alfa=0,05).</p>
+<p><img src="imagens/dbc_ex.png" width="100%" /></p>
+<p><strong>Interpretação</strong></p>
+<ul>
+<li>Variável Independente ou Fator em Estudo:
+<ul>
+<li>Produtos Comerciais (I = 5 níveis ou tratamentos)</li>
+<li>Variável Qualitatitva</li>
+</ul></li>
+<li>Blocos:
+<ul>
+<li>Grupos de Idade (J = 3 blocos = 3 repetições)</li>
+<li>Variável Qualitativa</li>
+</ul></li>
+<li>Número de Unidades Experimentais
+<ul>
+<li>N = I*J = 15</li>
+</ul></li>
+</ul>
+</div>
+<div id="modelo-estatístico-3" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Modelo Estatístico<a href="delineamento-em-blocos-casualizados.html#modelo-estatístico-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>yij = mu + ti + bj + eij</p>
+<ul>
+<li><p>Onde:</p>
+<p>yij = observação da variável resposta para o i-ésimo tratamento e a j-ésima repetição;
+mu = média geral;
+ti = efeito do i-ésimo tratamento;
+bj = efeito do j-ésimo bloco;
+eij = erro experimental com a pressuposição eij ~ NID(0; sigma<sup>2</sup>)</p></li>
+</ul>
+</div>
+<div id="análise-de-variância-7" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Análise de Variância<a href="delineamento-em-blocos-casualizados.html#análise-de-variância-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Vamos testar as hipóteses:</p>
+<ul>
+<li>H0: m1=m2=m3=m4=m5</li>
+<li>Ha: Pelo menos uma média é diferente das demais</li>
+</ul></li>
+<li><p>A técnica da ANOVA é uma decomposição da variância total nas variâncias dos efeitos do modelo.</p></li>
+<li><p>Portanto, vamos podemos realizar a decomposição por meio das Somas de Quadrados (SQ) para cada efeito (fonte de variação) do modelo :</p></li>
+<li><p>yij = m + ti + bj + eij</p></li>
+<li><p>SQTotal = SQTrat + SQBlocos + SQRes</p></li>
+<li><p>Na sequência podemos calcular os graus de liberdade relativos a cada fonte de variação do modelo:</p></li>
+<li><p>Graus de Liberdade:</p>
+<ul>
+<li>gl(Total): N - 1 = 14</li>
+<li>gl(Tratamentos): I - 1 = 4</li>
+<li>gl(Blocos): J - 1 = 2</li>
+<li>gl(Res) = gl(Total) - gl(Trat) - gl(Blocos) = 8</li>
+</ul></li>
+<li><p>Finalmente, os Quadrados Médios podem ser obtidos para cada fonte de variação do modelo:</p>
+<ul>
+<li>QMTrat = SQTrat/gl(Trat)</li>
+<li>QMBlocos = SQBlocos/gl(Blocos)</li>
+<li>QMRes = SQRes/gl(Res)</li>
+</ul></li>
+<li><p>Os QM são as variâncias relativas a cada efeito do modelo.</p></li>
+<li><p>O Teste F permite verificar se o efeito dos tratamentos é mais importante que a variação residual</p>
+<ul>
+<li>F = QMTrat/QMRes</li>
+</ul></li>
+</ul>
+</div>
+<div id="análise-no-r" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Análise no R<a href="delineamento-em-blocos-casualizados.html#análise-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>A Análise de Variância em um DBC pode ser executada facilmente no R.</li>
+</ul>
+<p><strong>1. Input de Dados</strong></p>
+<ul>
+<li>Podemos fazer a importação da base de dados através do comando <code>read.table</code></li>
+</ul>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="delineamento-em-blocos-casualizados.html#cb80-1" tabindex="-1"></a>dados1 <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;dados/dados_dbc.txt&quot;</span>, <span class="at">h =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb80-2"><a href="delineamento-em-blocos-casualizados.html#cb80-2" tabindex="-1"></a>dados1</span></code></pre></div>
+<pre><code>##    trat bloco   y
+## 1     1     1  83
+## 2     1     2  63
+## 3     1     3  55
+## 4     2     1  86
+## 5     2     2  69
+## 6     2     3  61
+## 7     3     1 103
+## 8     3     2  79
+## 9     3     3  79
+## 10    4     1 116
+## 11    4     2  81
+## 12    4     3  79
+## 13    5     1 132
+## 14    5     2  98
+## 15    5     3  91</code></pre>
+<ul>
+<li>Uma rápida inspeção no dataframe nos indica que os vetores para tratamentos e blocos são números inteiros. Portanto, é necessário transfomá-los em fatores:</li>
+</ul>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="delineamento-em-blocos-casualizados.html#cb82-1" tabindex="-1"></a>dados1 <span class="ot">&lt;-</span> <span class="fu">transform</span>(dados1, <span class="at">trat =</span> <span class="fu">factor</span>(trat), <span class="at">bloco =</span> <span class="fu">factor</span>(bloco))</span></code></pre></div>
+<ul>
+<li>Veja que também podemos realizar essa transdormação por meio dos comandos abaixo:</li>
+</ul>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="delineamento-em-blocos-casualizados.html#cb83-1" tabindex="-1"></a>dados1<span class="sc">$</span>trat <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados1<span class="sc">$</span>trat)</span>
+<span id="cb83-2"><a href="delineamento-em-blocos-casualizados.html#cb83-2" tabindex="-1"></a>dados1<span class="sc">$</span>bloco <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados1<span class="sc">$</span>bloco)</span></code></pre></div>
+<p><strong>2. Análise Exploratória</strong></p>
+<ul>
+<li>Podemos iniciar a análise exploratória visualizando um histograma dos valores da variável resposta:</li>
+</ul>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="delineamento-em-blocos-casualizados.html#cb84-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb84-2"><a href="delineamento-em-blocos-casualizados.html#cb84-2" tabindex="-1"></a>hist2 <span class="ot">&lt;-</span> <span class="fu">hist</span>(dados1<span class="sc">$</span>y)</span>
+<span id="cb84-3"><a href="delineamento-em-blocos-casualizados.html#cb84-3" tabindex="-1"></a><span class="fu">boxplot</span>(dados1<span class="sc">$</span>y, <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/hist2-1.png" width="672" /></p>
+<ul>
+<li><p>Pelo histograma não podemos ter certeza de uma distribuição normal, porém também não podemos descartar essa possibilidade</p></li>
+<li><p>O gráfico boxplot também nos dá alguns indicadores da distribuição dos dados</p></li>
+<li><p>Também podemos obter um boxplot para cada tratamento</p></li>
+</ul>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="delineamento-em-blocos-casualizados.html#cb85-1" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> trat, <span class="at">data =</span> dados1, <span class="at">horizontal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/box-1.png" width="672" /></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="delineamento-em-blocos-casualizados.html#cb86-1" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> bloco, <span class="at">data =</span> dados1, <span class="at">horizontal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/box-2.png" width="672" /></p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="delineamento-em-blocos-casualizados.html#cb87-1" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> trat, <span class="at">data =</span> dados1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/box-3.png" width="672" /></p>
+<ul>
+<li><p>A princípio a ditribuição dos dados parece ser homogênea entre os tratamentos</p></li>
+<li><p>O tratamento 5 exibe uma maior variação</p></li>
+<li><p>O tratamento 3 parece ser mais assimétrico</p></li>
+<li><p>Pela análise exploratória, podemos verificar que os dados em questão não devem apresentar violações graves das pressuposições do modelo. Iremos confirmar isso na análise de resíduos após a ANOVA</p></li>
+</ul>
+<p><strong>3. Análise de Variância</strong></p>
+<ul>
+<li>É de fácil aplicação através do comando <code>aov</code></li>
+<li>A função <code>summary</code> permite visualizar a tabela da ANOVA</li>
+</ul>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="delineamento-em-blocos-casualizados.html#cb88-1" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(y <span class="sc">~</span> trat <span class="sc">+</span> bloco, <span class="at">data =</span> dados1)</span>
+<span id="cb88-2"><a href="delineamento-em-blocos-casualizados.html#cb88-2" tabindex="-1"></a><span class="fu">summary</span>(modelo1)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## trat         4   3090   772.5   33.59 4.76e-05 ***
+## bloco        2   2770  1385.0   60.22 1.51e-05 ***
+## Residuals    8    184    23.0                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="delineamento-em-blocos-casualizados.html#cb90-1" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(y <span class="sc">~</span> trat, <span class="at">data =</span> dados1)</span>
+<span id="cb90-2"><a href="delineamento-em-blocos-casualizados.html#cb90-2" tabindex="-1"></a><span class="fu">summary</span>(modelo2)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## trat         4   3090   772.5   2.615 0.0992 .
+## Residuals   10   2954   295.4                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>O p-valor associado ao valor de Fcal para o efeito de tratamentos indica que podemos resjeitar a hipótese de nulidade de que as médias dos tratamentos seja iguais</li>
+<li>De fato, o QMTrat (772,5) é bem maior que o QMRes (23,0)</li>
+<li>Veja também que o efeito de blocos, ou seja, a variação entre os blocos também é alta. Embora não haja um interesse específico nessa variação, isso indica, de certa forma, que estamos corretos em organizar nosso experimento em blocos casualizados</li>
+<li>Uma interpretação final pode ser dada para o resultado da ANOVA:
+<ul>
+<li>“A ANOVA indica que os produtos comercias testados exercem efeito significativo na concentração do nutriente no sangue (p &lt;0,05)”</li>
+</ul></li>
+</ul>
+<p><strong>4. Análise de Pressuposições</strong></p>
+<ul>
+<li>Mais uma vez precisamos realizar a análise das pressuposições do erro experimental:
+<ul>
+<li>eij ~ NID(0;Sigma<sup>2)</sup></li>
+</ul></li>
+<li>Podemos fazer isso graficamente:</li>
+</ul>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="delineamento-em-blocos-casualizados.html#cb92-1" tabindex="-1"></a><span class="fu">plot</span>(modelo1, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<ul>
+<li>Além da análise gráfica, podemos utilizar:
+<ul>
+<li>Teste de Shapiro-Wilk (Normalidade)</li>
+<li>Teste de Bartlett (Homogeneidade de Variâncias)</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="delineamento-em-blocos-casualizados.html#cb93-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">resid</span>(modelo1))</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(modelo1)
+## W = 0.9285, p-value = 0.2591</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="delineamento-em-blocos-casualizados.html#cb95-1" tabindex="-1"></a><span class="fu">bartlett.test</span>(<span class="fu">resid</span>(modelo1) <span class="sc">~</span> trat, <span class="at">data=</span> dados1)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  resid(modelo1) by trat
+## Bartlett&#39;s K-squared = 0.63055, df = 4, p-value = 0.9596</code></pre>
+<p><strong>5.Coeficiente de Variação Experimental</strong></p>
+<ul>
+<li>Finalmente podemos interpretar o coeficiente de variação experimental</li>
+</ul>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="delineamento-em-blocos-casualizados.html#cb97-1" tabindex="-1"></a><span class="fu">library</span>(agricolae)</span>
+<span id="cb97-2"><a href="delineamento-em-blocos-casualizados.html#cb97-2" tabindex="-1"></a><span class="fu">cv.model</span>(modelo1)</span></code></pre></div>
+<pre><code>## [1] 5.642155</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="anova---delineamento-inteiramento-casualizado.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="contrastes-tcm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-dbc.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

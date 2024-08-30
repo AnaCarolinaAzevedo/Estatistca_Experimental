@@ -1,0 +1,19 @@
+#Relatório Final AGR 194 - Estatística Experimental
+
+## Efeito do teor de celulose na resistência à tração em embalagens de papel
+
+### Introdução
+
+A produção de papel desempenha um papel fundamental na sociedade contemporânea, sendo um dos pilares da comunicação escrita e da preservação de informações (Hubbe et al., 2019). A qualidade do papel, por sua vez, está intrinsecamente ligada às propriedades da celulose, principal componente proveniente da madeira, que serve como matéria-prima para a fabricação do papel (Aspinwall et al., 2017). Este artigo visa explorar a relação entre a resistência à tração do papel e os diferentes teores de celulose presentes na madeira utilizada na sua produção.
+
+A celulose, um polissacarídeo composto por longas cadeias de glicose, é o principal componente estrutural das fibras vegetais, sendo extraída da madeira por meio de processos industriais (Pelissari et al., 2018). Diversos fatores influenciam a qualidade da celulose, tais como a espécie da árvore, o método de extração e o processamento subsequente (Basta et al., 2019). Estudos anteriores destacaram a importância da celulose na determinação das propriedades físicas e mecânicas do papel, sendo a resistência à tração uma característica crucial para garantir a durabilidade e desempenho adequado do material (Gurnagul & Page, 1992).
+
+Ao longo das últimas décadas, pesquisadores têm se dedicado a compreender como variações nos teores de celulose na madeira afetam a resistência à tração do papel resultante (Aspinwall et al., 2017). Uma série de investigações tem indicado que diferentes tipos de madeira possuem composições celulósicas distintas, o que influencia diretamente na qualidade e resistência do papel produzido (Basta et al., 2019). Essas descobertas têm implicações significativas para a indústria de papel, fornecendo insights valiosos para otimizar a escolha da matéria-prima e os processos de produção.
+
+Este artigo busca contribuir para o entendimento aprofundado da relação entre teores de celulose na madeira e a resistência à tração do papel, consolidando informações provenientes de estudos prévios e explorando novas perspectivas (Hubbe et al., 2019). Ao fazê-lo, pretende-se fornecer subsídios que possam orientar a indústria na tomada de decisões mais informadas e sustentáveis, promovendo avanços significativos na produção de papel.
+
+### Materiais e Métodos
+
+O experimento foi conduzido utilizando um delineamento inteiramente casualizado, onde os diferentes níveis de concentração de celulose na madeira foram atribuídos aleatoriamente aos corpos de prova. Diferentes tipos de madeira foram utilizados, cada uma com concentrações variadas de celulose. A escolha da madeira foi baseada em considerações sobre a composição celulósica, levando em conta a influência desta na resistência do papel (Basta et al., 2019). A variável independente principal foi a concentração de celulose na madeira, com quatro níveis distintos: 5%, 10%, 15%, e 20%.
+
+Seis corpos de prova foram fabricados para cada nível de concentração, totalizando 24 amostras. A fabricação dos corpos de prova foi realizada em uma planta piloto, garantindo condições controladas e representativas do processo industrial de produção de papel (Figura 1). Os 24 corpos de prova foram submetidos a testes de resistência à tração em um equipamento de laboratório. Os resultados foram registrados em psi (libra/polegada²), proporcionando dados quantitativos sobre a resistência do papel em diferentes concentrações de celulose.

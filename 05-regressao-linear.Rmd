@@ -1,0 +1,306 @@
+# Regressão Linear
+
+## Regressão Linear Simples
+
+A análise de Regressão Linear Simples pode envolver dois cenários, a depender da estrutura de dados utilizada.
+
+- Um primeiro caso, bastante típico, correponde em se utilizar apenas uma única observação para cada nível da variável independente X. Isso corresponderia a um experimento sem repetições, uma vez que cada nível da variável independente corresponde a um tratamento. Em geral, no caso de análise de dados oriundos de um experimento, o que os pesquisadores fazem é calcular a média de cada tratamento, tomando estes valores como uma observação única.
+
+- Um segundo caso é considerarmos todas as observações ou repetições na Análise de Regressão. Este caso é mais desafiador em termos analíticos. Porém, permite uma análise mais cuidadosa do ajuste do modelo, através da Análise da Falta de Ajuste. Vamos abordar estes dois casos a seguir.
+
+### Observação única para cada nível da variável X
+
+**Exemplo 1:** Um estudo foi conduzido para verificar a dilatação em barras de aço. Para tanto, foram testadas diferentes temperaturas (°C) e medidos os comprimentos (mm) das barras de aço. Pede-se ajustar um modelo de Regressão Linear Simples.
+
+- A primeira etapa é realizar a importação do dataset.
+
+```{r data1}
+dados3 <- read.table("dados/reg.txt", h = T)
+dados3
+```
+
+- Na Análise de Regressão, a investigação de um gráfico de dispersão nos dá uma idéia do relacionamento entre as variáveis.
+- Nesse caso, a variável independente (*x*) é a temperatura e a variável resposta (*y*) é o comprimento das barras
+
+```{r exp2,  out.width="50%"}
+plot(x = dados3$temp, y = dados3$comp)
+```
+
+- Pela análise gráfica, verificamos que é bem provável existir uma relação linear simples entre as variáveis.
+- Portanto vamos ajustar um modelo linear do tipo:
+
+$$y_{i}=\beta _{0}+\beta _{1}x_{i}+\epsilon$$
+
+- Este ajuste pode ser facilmente obtido usando a função `lm`
+
+```{r reg1}
+reg1 <- lm(comp ~ temp, data = dados3)
+reg1
+```
+
+- Como resultado, temos em mãos os coeficientes b0 e b1, estimados pelo método dos mínimos quadrados, de maneira que a equação ajustada fica:
+
+$$\hat{y}=997.40 +0.56x$$
+- Embora tenhamos um modelo ajustado, é importante avaliar se este modelo apresenta boas propriedades estatísticas
+
+- Uma primeira providência é realizar a análise das pressuposições dos resíduos do modelo:
+  - Linearidade
+  - Normalidade
+  - Homodecasticidade
+  
+  
+- A análise gráfica dos resíduos pode ser facilmente implementada:
+
+```{r pres}
+
+par(mfrow=c(2,2))
+plot(reg1)
+shapiro.test(resid(reg1))
+
+```
+
+Além da análise das presuposições, precisamos verificar também a significância do modelo e dos coefiicentes estimados *b0* e *b1*. É possível avaliar estas propriedades de diferentes formas:
+
+---
+
+1. ANOVA da Regressão com a função `anova`
+
+```{r anova5}
+anova5 <- anova(reg1); anova5
+```
+
+- A Tabela da ANOVA da Regressão permite testar a significância da equação ajustada.
+
+- Algumas interpretações importantes:
+  
+  - O F calculado é a razão entre o QMReg/QMRes.
+  - Este valor, sendo significativo, como é o caso, implica em verificar se os coeficientes são diferentes de zero. As hipóteses a serem testadas são:
+    - H0: b0 = b1 = 0
+    - Ha: Pelo menos um bi diferente de zero
+    
+  - O resultado obtido indica que a equação ajustada apresenta efeito singinficativo (p = 0,002746), ou seja, a variação explicada pelo modelo é mais importante que a variação residual
+
+---
+
+2. Teste t para coeficientes com a função `summary`
+
+```{r testt}
+summary(reg1)
+```
+
+- Podemos verificar algumas estatísticas importantes:
+  
+  - O teste t para os coeficientes da regressão implica em testar as hipóteses de que os coeficientes são iguais a zero ou não na forma de:
+    
+    - H0: bi $=$ 0
+    - Ha: bi $\neq$ 0
+  
+  - O resultado indica que os dois coeficientes apresentam significância, indicando que os mesmos são diferentes de zero.
+  
+  - A principal implicação prática refere-se ao coeficiente b1. Caso o teste t seja não significativo, este coeficiente tem inclinação zero e, portanto, teríamos uma situação em que a variação de x não exerce influencia sobre a variação em y
+  
+- Outro resultado prático é a interpretação do valor de R^2^, conhecido como Coeficiente de Determinação
+  
+- O R^2^ pode ser obtido por:
+
+$$R^{2}= \frac{SQReg}{SQTotal}$$
+
+- O R^2^ = 0,9655 indica que o modelo utilizado explica 96,55% da variação observada em y, indicando uma qualidade de ajuste muito boa.
+  
+- É importante ressaltar que o R^2^ varia de 0 <  R^2^ < 1
+
+---
+
+- Um próximo passo é criar o gráfico de dispersão para incluir a reta da equação ajustada. Vamos fazer isso de duas maneiras.
+
+
+1. Utilizando as funções básicas do R:
+
+```{r graph1, out.width="50%"}
+
+plot(x = dados3$temp, y = dados3$comp,
+     ylab = "Comprimento (mm)",
+     xlab = "Temperatura (C)")
+abline(reg1, col="red")
+
+```
+
+2. Utilizando o pacote `ggplot2`:
+
+```{r graph2, out.width="50%"}
+
+#install.packages("ggplot2")
+library(ggplot2)
+
+ggplot(dados3, aes(temp, comp)) +
+  geom_point() +
+  geom_smooth(method='lm', se=TRUE) +
+  labs(x="Temperatura (C)", y="Comprimento (mm)")
+
+```
+
+### Mais de uma observação (repetições) para cada nível da variável X
+
+Uma situação mais comum em Delineamentos Experimentais é trabalhar com dados com repetição. Sendo assim os procedimentos são:
+
+- Realizar a ANOVA do Delineamento Experimental de forma convencional
+
+- Na sequência, realizar a Análise de Regressão, levando em consideração a Análsie da **Falta de Ajuste**
+
+- É importante destacar que vamos empregar uma técnica denominada de Regressão Polinomial, em que é possível ajustar uma equação de grau *n* do tipo:
+
+$$y_{i}=\beta _{0}+\beta _{1}x_{i}+\beta _{2}x_{i}^2+...+\beta _{n}x_{i}^n+\epsilon$$
+
+- A Regressão Polinomial pode ser útil quando existe uma relação não linear clara entre as varáveis.
+
+**Exemplo 2:** Em um experimento no DIC com cinco repetições foram testadas cinco doses de um hormônio vegetal (15, 20, 25, 30 e 35 ppm), e seu efeito na indução de resistência a um inseto praga. A variável resposta indica o número de insetos praga encontrados em cada parcela.
+
+1. Input de Dados
+
+```{r data2}
+
+dados4 <- read.table("dados/reg_2022.txt", h = T)
+dados4
+```
+
+2. Análise Exploratória
+
+- Por se tratar de um fator quantitativo, podemos fazer uma análise exploratória simples por meio de um gráfico de dispersão
+
+```{r graph3, out.width="50%"}
+plot(resist ~ conc, data = dados4)
+```
+
+- A análise gráfica não parece retratar um modelo linear simples. A distribuição dos dados parece indicar um relação de 2 grau entre as variáveis. As análises estatísticas subsequentes vão nos ajudar a tomar essa decisão.
+
+3. ANOVA do Delineamento Experimental
+
+- Como o vetor de tratamentos é numérico, será necessário criar um vetor de fatores auxiliar para a ANOVA
+
+```{r fact}
+dados4$concf <- as.factor(dados4$conc)
+
+```
+
+- Na sequência realiza-se a ANOVA, conforme já conhecemos, utilizando o vetor adicional criado
+
+```{r}
+
+mod <- aov(resist ~ concf, data = dados4)
+anova(mod)
+```
+
+- Com base no resultado, verificamos a significância dos efeitos das doses (p < 0,05), implicando em uma análise de regressão complementar
+
+- Podemos também realizar a Análise de Resíduos para as pressuposições do modelo:
+
+```{r pres2}
+
+par(mfrow=c(2,2))
+plot(mod)
+shapiro.test(resid(mod))
+
+```
+
+4. Análise de Regressão - Modelo de 1° Grau
+
+- Teremos que realizar um ajuste simultâneo para os tratamentos e a equação de regressão.
+
+- O que fazemos aqui é ajustar um modelo de 1° grau incluindo os tratamentos e, em seguida, aplicar uma ANOVA ao modelo.
+- Colocamos o termo adicional `dosef` para tratamentos 
+
+```{r reg2}
+
+ar1 <- aov (lm (resist ~ conc + concf, data = dados4))
+summary(ar1)
+```
+
+- Compare o resultado com a ANOVA do Delineamento Experimental
+  - Inicialmente temos quatro graus de liberdade para tratamentos
+  - A fonte de variação `dose`corresponde ao modelo de 1° Grau e consome um grau de liberdade dos tratamentos
+  - A fonte de variação `dosef`corresponde ao que chamamos de **Falta de Ajuste** (ou Desvios de Regressão) e constitue os graus de liberdade restantes
+  - Veja que as Somas de Quadrados também podem ser somadas, indicando uma decomposição ortogonal
+
+- Veja que o teste F para `dose` não é significativo a 5%. Isso indica que o modelo de 1° Grau não é adequado
+- Além disso, o teste F para a Falta de Ajuste é significativo, ou seja, existe variação não captada pelo modelo de 1° Grau
+- Sendo assim, convém testar o modelo de 2° Grau
+
+5. Análise de Regressão - Modelo de 2° Grau
+
+Nesse caso, vamos ajustar um modelo do tipo:
+
+$$y_{i}=\beta _{0}+\beta _{1}x_{i}+\beta _{2}x_{i}^2+\epsilon$$
+
+```{r reg3}
+
+ar2 <- aov (lm (resist ~ conc + I(conc^2) + concf, data = dados4)) # I(conc^2) corresponde ao termo quadrático
+summary(ar2)
+```
+- Embora o termo quadrático incluso no modelo apresente significância (p < 0,05), indicando um bom ajuste, percebe-se que a Falta de Ajuste ainda é singificativa.
+- Além disso, temos graus de liberdade suficiente para testar um modelo de 3° Grau
+
+6. Análise de Regressão - Modelo de 3° Grau
+
+Vamos ajustar um modelo do tipo:
+
+$$y_{i}=\beta _{0}+\beta _{1}x_{i}+\beta _{2}x_{i}^2+\beta _{3}x_{i}^3+\epsilon$$
+```{r reg4}
+
+ar3 <- aov (lm (resist ~ conc + I(conc^2) + I(conc^3) + concf, data = dados4)) # I(dose^3) corresponde ao termo cúbico
+summary(ar3)
+```
+ 
+ - Veja que a inclusão do termo cúbico foi significativa, indicando um bom ajuste.
+  - Além disso, a Falta de Ajuste já não é significativa!
+  - Portanto, temos um modelo bastante consistente.
+
+- Para concluir a análise, vamos obter a equação ajustada e os seus coeficientes utilizando a função `lm` da forma convencional, sem incluir os efeitos de tratamentos:
+
+```{r reg5}
+
+reg3 <- lm (resist ~ conc + I(conc^2) + I(conc^3), data = dados4)
+summary(reg3)
+```
+
+ - Temos que ficar atentos a esta saída no R:
+    - Os coeficientes são estimados adequadamente e os teste de significância estão corretos. Dessa forma a equação ajustada é:
+    
+$$y=62.612-9.011x+0.481x^2-0.007x^3$$
+
+    - Porém, as estimativas do R^2^ e a estasítica F não correspondem ao cenário ideal!
+    - Isso ocorre porque o termo da Falta de Ajuste é incluído no Erro Experimental.
+    - Além disso, temso que ficar atentos ao R^2^ calculado. A saída do `summary`nesse caso não seria a mais correta.
+    - No caso de dados com repetição o R^2^ mais adequado é:
+
+$$R^{2}= \frac{SQReg}{SQTrat}=1-\frac{SQFA}{SQTrat}$$
+
+- Sendo assim, temos:
+
+```{r r2}
+
+R2 <- 1 - (33.9/475.76)
+R2
+```
+- Finalmente, podemos fazer um gráfico e adicionar a nossa curva de regressão mais adequada:
+
+```{r graph4, out.width="50%"}
+
+ggplot(dados4, aes(conc, resist)) +
+  geom_point() +
+  geom_smooth(method='lm', se=TRUE, formula = y ~ x + I(x^2)+ I(x^3)) +
+  labs(x="conc", y="resist")
+```
+
+Embora tenhamos empregado um certo esforço para compreender o uso da Regressão Polinomial no contexto de um delineamento experimental, é possível trabalhar de forma bastante simplificada através do pacote `Pacote ExpDes.pt`
+
+Veja abaixo como isso se torna mais simples, embora os conceitos e a interpretação dos resultados permanece a mesma!
+
+```{r expdes}
+
+#install.packages("ExpDes.pt")
+library(ExpDes.pt)
+
+dic(dados4$conc, dados4$resist, quali=FALSE) # Muito simples!
+
+```
+

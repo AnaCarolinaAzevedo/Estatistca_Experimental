@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 6 Regressão Linear | Apostila de Estatistica Experimental</title>
+  <meta name="description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 6 Regressão Linear | Apostila de Estatistica Experimental" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 6 Regressão Linear | Apostila de Estatistica Experimental" />
+  
+  <meta name="twitter:description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
+  
+
+<meta name="author" content="Pedro Ivo" />
+
+
+<meta name="date" content="2024-08-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="contrastes-tcm.html"/>
+<link rel="next" href="experimentos-fatoriais.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução a Estatistica Experimental</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#porque-utilizar-a-estatistica-no-cotidiano"><i class="fa fa-check"></i><b>1.1</b> Porque utilizar a Estatistica no cotidiano</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#sobre-a-apostila"><i class="fa fa-check"></i><b>1.2</b> Sobre a apostila</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html"><i class="fa fa-check"></i><b>2</b> Teste t Para Duas Médias</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-de-student-para-dois-grupos-ou-médias-independentes"><i class="fa fa-check"></i><b>2.1</b> Teste t de Student para dois grupos ou médias independentes</a></li>
+<li class="chapter" data-level="2.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#a.variâncias-homocedásticas"><i class="fa fa-check"></i><b>2.2</b> A.Variâncias Homocedásticas</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#análise-exploratória"><i class="fa fa-check"></i><b>2.2.1</b> Análise Exploratória</a></li>
+<li class="chapter" data-level="2.2.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-box-plot"><i class="fa fa-check"></i><b>2.2.2</b> Gráfico Box-Plot</a></li>
+<li class="chapter" data-level="2.2.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#pressuposição-de-normalidade"><i class="fa fa-check"></i><b>2.2.3</b> Pressuposição de Normalidade</a></li>
+<li class="chapter" data-level="2.2.4" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-de-homogeneidade-das-variâncias"><i class="fa fa-check"></i><b>2.2.4</b> Teste de Homogeneidade das Variâncias</a></li>
+<li class="chapter" data-level="2.2.5" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-para-variâncias-homocedásticas"><i class="fa fa-check"></i><b>2.2.5</b> Teste t para variâncias homocedásticas</a></li>
+<li class="chapter" data-level="2.2.6" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-do-teste-t"><i class="fa fa-check"></i><b>2.2.6</b> Gráfico do teste t</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#b.-variâncias-heterocedásticas"><i class="fa fa-check"></i><b>2.3</b> B. Variâncias Heterocedásticas</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#análise-exploratória-1"><i class="fa fa-check"></i><b>2.3.1</b> Análise Exploratória</a></li>
+<li class="chapter" data-level="2.3.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-box-plot-1"><i class="fa fa-check"></i><b>2.3.2</b> Gráfico Box-Plot</a></li>
+<li class="chapter" data-level="2.3.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#pressuposição-de-normalidade-1"><i class="fa fa-check"></i><b>2.3.3</b> Pressuposição de Normalidade</a></li>
+<li class="chapter" data-level="2.3.4" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-de-homogeneidade-das-variâncias-1"><i class="fa fa-check"></i><b>2.3.4</b> Teste de Homogeneidade das Variâncias</a></li>
+<li class="chapter" data-level="2.3.5" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-para-variâncias-heterocedásticas"><i class="fa fa-check"></i><b>2.3.5</b> Teste t para variâncias heterocedásticas</a></li>
+<li class="chapter" data-level="2.3.6" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-do-teste-t-1"><i class="fa fa-check"></i><b>2.3.6</b> Gráfico do teste t</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html"><i class="fa fa-check"></i><b>3</b> ANOVA - Delineamento Inteiramento Casualizado</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#introdução"><i class="fa fa-check"></i><b>3.1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#interpretação"><i class="fa fa-check"></i><b>3.1.1</b> Interpretação</a></li>
+<li class="chapter" data-level="3.1.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#dados"><i class="fa fa-check"></i><b>3.1.2</b> Dados</a></li>
+<li class="chapter" data-level="3.1.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#input-de-dados"><i class="fa fa-check"></i><b>3.1.3</b> Input de Dados</a></li>
+<li class="chapter" data-level="3.1.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#estrutura-do-data-frame"><i class="fa fa-check"></i><b>3.1.4</b> Estrutura do Data-Frame</a></li>
+<li class="chapter" data-level="3.1.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-gráfica-exploratória"><i class="fa fa-check"></i><b>3.1.5</b> Análise Gráfica Exploratória</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico"><i class="fa fa-check"></i><b>3.2</b> Modelo Estatístico</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico-1"><i class="fa fa-check"></i><b>3.2.1</b> Modelo Estatístico (1)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico-2"><i class="fa fa-check"></i><b>3.2.2</b> Modelo Estatístico (2)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância"><i class="fa fa-check"></i><b>3.3</b> Análise de Variância</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-1"><i class="fa fa-check"></i><b>3.3.1</b> Análise de Variância (1)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-2"><i class="fa fa-check"></i><b>3.3.2</b> Análise de Variância (2)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-3"><i class="fa fa-check"></i><b>3.3.3</b> Análise de Variância (3)</a></li>
+<li class="chapter" data-level="3.3.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-4"><i class="fa fa-check"></i><b>3.3.4</b> Análise de Variância (4)</a></li>
+<li class="chapter" data-level="3.3.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-5"><i class="fa fa-check"></i><b>3.3.5</b> Análise de Variância (5)</a></li>
+<li class="chapter" data-level="3.3.6" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-6"><i class="fa fa-check"></i><b>3.3.6</b> Análise de Variância (6)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições"><i class="fa fa-check"></i><b>3.4</b> Análise das Pressuposições</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-1"><i class="fa fa-check"></i><b>3.4.1</b> Análise das Pressuposições (1)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-2"><i class="fa fa-check"></i><b>3.4.2</b> Análise das Pressuposições (2)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-3"><i class="fa fa-check"></i><b>3.4.3</b> Análise das Pressuposições (3)</a></li>
+<li class="chapter" data-level="3.4.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-4"><i class="fa fa-check"></i><b>3.4.4</b> Análise das Pressuposições (4)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#coeficiente-de-variação-experimental"><i class="fa fa-check"></i><b>3.5</b> Coeficiente de Variação Experimental</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html"><i class="fa fa-check"></i><b>4</b> Delineamento em Blocos Casualizados</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#introdução-1"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
+<li class="chapter" data-level="4.2" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#casualização-em-dbc"><i class="fa fa-check"></i><b>4.2</b> Casualização em DBC</a></li>
+<li class="chapter" data-level="4.3" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#modelo-estatístico-3"><i class="fa fa-check"></i><b>4.3</b> Modelo Estatístico</a></li>
+<li class="chapter" data-level="4.4" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#análise-de-variância-7"><i class="fa fa-check"></i><b>4.4</b> Análise de Variância</a></li>
+<li class="chapter" data-level="4.5" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#análise-no-r"><i class="fa fa-check"></i><b>4.5</b> Análise no R</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="contrastes-tcm.html"><a href="contrastes-tcm.html"><i class="fa fa-check"></i><b>5</b> Contrastes TCM</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="contrastes-tcm.html"><a href="contrastes-tcm.html#introdução-2"><i class="fa fa-check"></i><b>5.1</b> Introdução</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="regressão-linear.html"><a href="regressão-linear.html"><i class="fa fa-check"></i><b>6</b> Regressão Linear</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="regressão-linear.html"><a href="regressão-linear.html#regressão-linear-simples"><i class="fa fa-check"></i><b>6.1</b> Regressão Linear Simples</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="regressão-linear.html"><a href="regressão-linear.html#observação-única-para-cada-nível-da-variável-x"><i class="fa fa-check"></i><b>6.1.1</b> Observação única para cada nível da variável X</a></li>
+<li class="chapter" data-level="6.1.2" data-path="regressão-linear.html"><a href="regressão-linear.html#mais-de-uma-observação-repetições-para-cada-nível-da-variável-x"><i class="fa fa-check"></i><b>6.1.2</b> Mais de uma observação (repetições) para cada nível da variável X</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html"><i class="fa fa-check"></i><b>7</b> Experimentos Fatoriais</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#introdução-3"><i class="fa fa-check"></i><b>7.1</b> Introdução</a></li>
+<li class="chapter" data-level="7.2" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#tipos-de-efeitos"><i class="fa fa-check"></i><b>7.2</b> Tipos de Efeitos</a></li>
+<li class="chapter" data-level="7.3" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#casualização-em-experimentos-fatoriais"><i class="fa fa-check"></i><b>7.3</b> Casualização em Experimentos Fatoriais</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#outros-gráficos"><i class="fa fa-check"></i><b>7.3.1</b> Outros Gráficos!</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#efeito-do-teor-de-celulose-na-resistência-à-tração-em-embalagens-de-papel"><i class="fa fa-check"></i><b>7.4</b> Efeito do teor de celulose na resistência à tração em embalagens de papel</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#introdução-4"><i class="fa fa-check"></i><b>7.4.1</b> Introdução</a></li>
+<li class="chapter" data-level="7.4.2" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#materiais-e-métodos"><i class="fa fa-check"></i><b>7.4.2</b> Materiais e Métodos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Apostila de Estatistica Experimental</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regressão-linear" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Capítulo 6</span> Regressão Linear<a href="regressão-linear.html#regressão-linear" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="regressão-linear-simples" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Regressão Linear Simples<a href="regressão-linear.html#regressão-linear-simples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A análise de Regressão Linear Simples pode envolver dois cenários, a depender da estrutura de dados utilizada.</p>
+<ul>
+<li><p>Um primeiro caso, bastante típico, correponde em se utilizar apenas uma única observação para cada nível da variável independente X. Isso corresponderia a um experimento sem repetições, uma vez que cada nível da variável independente corresponde a um tratamento. Em geral, no caso de análise de dados oriundos de um experimento, o que os pesquisadores fazem é calcular a média de cada tratamento, tomando estes valores como uma observação única.</p></li>
+<li><p>Um segundo caso é considerarmos todas as observações ou repetições na Análise de Regressão. Este caso é mais desafiador em termos analíticos. Porém, permite uma análise mais cuidadosa do ajuste do modelo, através da Análise da Falta de Ajuste. Vamos abordar estes dois casos a seguir.</p></li>
+</ul>
+<div id="observação-única-para-cada-nível-da-variável-x" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Observação única para cada nível da variável X<a href="regressão-linear.html#observação-única-para-cada-nível-da-variável-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Exemplo 1:</strong> Um estudo foi conduzido para verificar a dilatação em barras de aço. Para tanto, foram testadas diferentes temperaturas (°C) e medidos os comprimentos (mm) das barras de aço. Pede-se ajustar um modelo de Regressão Linear Simples.</p>
+<ul>
+<li>A primeira etapa é realizar a importação do dataset.</li>
+</ul>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="regressão-linear.html#cb99-1" tabindex="-1"></a>dados3 <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;dados/reg.txt&quot;</span>, <span class="at">h =</span> T)</span>
+<span id="cb99-2"><a href="regressão-linear.html#cb99-2" tabindex="-1"></a>dados3</span></code></pre></div>
+<pre><code>##   temp comp
+## 1   10 1003
+## 2   15 1005
+## 3   20 1010
+## 4   25 1011
+## 5   30 1014</code></pre>
+<ul>
+<li>Na Análise de Regressão, a investigação de um gráfico de dispersão nos dá uma idéia do relacionamento entre as variáveis.</li>
+<li>Nesse caso, a variável independente (<em>x</em>) é a temperatura e a variável resposta (<em>y</em>) é o comprimento das barras</li>
+</ul>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="regressão-linear.html#cb101-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> dados3<span class="sc">$</span>temp, <span class="at">y =</span> dados3<span class="sc">$</span>comp)</span></code></pre></div>
+<p><img src="_main_files/figure-html/exp2-1.png" width="50%" /></p>
+<ul>
+<li>Pela análise gráfica, verificamos que é bem provável existir uma relação linear simples entre as variáveis.</li>
+<li>Portanto vamos ajustar um modelo linear do tipo:</li>
+</ul>
+<p><span class="math display">\[y_{i}=\beta _{0}+\beta _{1}x_{i}+\epsilon\]</span></p>
+<ul>
+<li>Este ajuste pode ser facilmente obtido usando a função <code>lm</code></li>
+</ul>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="regressão-linear.html#cb102-1" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(comp <span class="sc">~</span> temp, <span class="at">data =</span> dados3)</span>
+<span id="cb102-2"><a href="regressão-linear.html#cb102-2" tabindex="-1"></a>reg1</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = comp ~ temp, data = dados3)
+## 
+## Coefficients:
+## (Intercept)         temp  
+##      997.40         0.56</code></pre>
+<ul>
+<li>Como resultado, temos em mãos os coeficientes b0 e b1, estimados pelo método dos mínimos quadrados, de maneira que a equação ajustada fica:</li>
+</ul>
+<p><span class="math display">\[\hat{y}=997.40 +0.56x\]</span>
+- Embora tenhamos um modelo ajustado, é importante avaliar se este modelo apresenta boas propriedades estatísticas</p>
+<ul>
+<li>Uma primeira providência é realizar a análise das pressuposições dos resíduos do modelo:
+<ul>
+<li>Linearidade</li>
+<li>Normalidade</li>
+<li>Homodecasticidade</li>
+</ul></li>
+<li>A análise gráfica dos resíduos pode ser facilmente implementada:</li>
+</ul>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="regressão-linear.html#cb104-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb104-2"><a href="regressão-linear.html#cb104-2" tabindex="-1"></a><span class="fu">plot</span>(reg1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/pres-1.png" width="672" /></p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="regressão-linear.html#cb105-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">resid</span>(reg1))</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(reg1)
+## W = 0.86775, p-value = 0.2574</code></pre>
+<p>Além da análise das presuposições, precisamos verificar também a significância do modelo e dos coefiicentes estimados <em>b0</em> e <em>b1</em>. É possível avaliar estas propriedades de diferentes formas:</p>
+<hr />
+<ol style="list-style-type: decimal">
+<li>ANOVA da Regressão com a função <code>anova</code></li>
+</ol>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="regressão-linear.html#cb107-1" tabindex="-1"></a>anova5 <span class="ot">&lt;-</span> <span class="fu">anova</span>(reg1); anova5</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: comp
+##           Df Sum Sq Mean Sq F value   Pr(&gt;F)   
+## temp       1   78.4  78.400      84 0.002746 **
+## Residuals  3    2.8   0.933                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li><p>A Tabela da ANOVA da Regressão permite testar a significância da equação ajustada.</p></li>
+<li><p>Algumas interpretações importantes:</p>
+<ul>
+<li>O F calculado é a razão entre o QMReg/QMRes.</li>
+<li>Este valor, sendo significativo, como é o caso, implica em verificar se os coeficientes são diferentes de zero. As hipóteses a serem testadas são:
+<ul>
+<li>H0: b0 = b1 = 0</li>
+<li>Ha: Pelo menos um bi diferente de zero</li>
+</ul></li>
+<li>O resultado obtido indica que a equação ajustada apresenta efeito singinficativo (p = 0,002746), ou seja, a variação explicada pelo modelo é mais importante que a variação residual</li>
+</ul></li>
+</ul>
+<hr />
+<ol start="2" style="list-style-type: decimal">
+<li>Teste t para coeficientes com a função <code>summary</code></li>
+</ol>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="regressão-linear.html#cb109-1" tabindex="-1"></a><span class="fu">summary</span>(reg1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = comp ~ temp, data = dados3)
+## 
+## Residuals:
+##          1          2          3          4          5 
+## -9.008e-14 -8.000e-01  1.400e+00 -4.000e-01 -2.000e-01 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 997.4000     1.2961 769.511 4.84e-09 ***
+## temp          0.5600     0.0611   9.165  0.00275 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9661 on 3 degrees of freedom
+## Multiple R-squared:  0.9655, Adjusted R-squared:  0.954 
+## F-statistic:    84 on 1 and 3 DF,  p-value: 0.002746</code></pre>
+<ul>
+<li><p>Podemos verificar algumas estatísticas importantes:</p>
+<ul>
+<li><p>O teste t para os coeficientes da regressão implica em testar as hipóteses de que os coeficientes são iguais a zero ou não na forma de:</p>
+<ul>
+<li>H0: bi <span class="math inline">\(=\)</span> 0</li>
+<li>Ha: bi <span class="math inline">\(\neq\)</span> 0</li>
+</ul></li>
+<li><p>O resultado indica que os dois coeficientes apresentam significância, indicando que os mesmos são diferentes de zero.</p></li>
+<li><p>A principal implicação prática refere-se ao coeficiente b1. Caso o teste t seja não significativo, este coeficiente tem inclinação zero e, portanto, teríamos uma situação em que a variação de x não exerce influencia sobre a variação em y</p></li>
+</ul></li>
+<li><p>Outro resultado prático é a interpretação do valor de R<sup>2</sup>, conhecido como Coeficiente de Determinação</p></li>
+<li><p>O R<sup>2</sup> pode ser obtido por:</p></li>
+</ul>
+<p><span class="math display">\[R^{2}= \frac{SQReg}{SQTotal}\]</span></p>
+<ul>
+<li><p>O R<sup>2</sup> = 0,9655 indica que o modelo utilizado explica 96,55% da variação observada em y, indicando uma qualidade de ajuste muito boa.</p></li>
+<li><p>É importante ressaltar que o R<sup>2</sup> varia de 0 &lt; R<sup>2</sup> &lt; 1</p></li>
+</ul>
+<hr />
+<ul>
+<li>Um próximo passo é criar o gráfico de dispersão para incluir a reta da equação ajustada. Vamos fazer isso de duas maneiras.</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Utilizando as funções básicas do R:</li>
+</ol>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="regressão-linear.html#cb111-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> dados3<span class="sc">$</span>temp, <span class="at">y =</span> dados3<span class="sc">$</span>comp,</span>
+<span id="cb111-2"><a href="regressão-linear.html#cb111-2" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Comprimento (mm)&quot;</span>,</span>
+<span id="cb111-3"><a href="regressão-linear.html#cb111-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Temperatura (C)&quot;</span>)</span>
+<span id="cb111-4"><a href="regressão-linear.html#cb111-4" tabindex="-1"></a><span class="fu">abline</span>(reg1, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/graph1-1.png" width="50%" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Utilizando o pacote <code>ggplot2</code>:</li>
+</ol>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="regressão-linear.html#cb112-1" tabindex="-1"></a><span class="co">#install.packages(&quot;ggplot2&quot;)</span></span>
+<span id="cb112-2"><a href="regressão-linear.html#cb112-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb112-3"><a href="regressão-linear.html#cb112-3" tabindex="-1"></a></span>
+<span id="cb112-4"><a href="regressão-linear.html#cb112-4" tabindex="-1"></a><span class="fu">ggplot</span>(dados3, <span class="fu">aes</span>(temp, comp)) <span class="sc">+</span></span>
+<span id="cb112-5"><a href="regressão-linear.html#cb112-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb112-6"><a href="regressão-linear.html#cb112-6" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&#39;lm&#39;</span>, <span class="at">se=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb112-7"><a href="regressão-linear.html#cb112-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Temperatura (C)&quot;</span>, <span class="at">y=</span><span class="st">&quot;Comprimento (mm)&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/graph2-1.png" width="50%" /></p>
+</div>
+<div id="mais-de-uma-observação-repetições-para-cada-nível-da-variável-x" class="section level3 hasAnchor" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Mais de uma observação (repetições) para cada nível da variável X<a href="regressão-linear.html#mais-de-uma-observação-repetições-para-cada-nível-da-variável-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uma situação mais comum em Delineamentos Experimentais é trabalhar com dados com repetição. Sendo assim os procedimentos são:</p>
+<ul>
+<li><p>Realizar a ANOVA do Delineamento Experimental de forma convencional</p></li>
+<li><p>Na sequência, realizar a Análise de Regressão, levando em consideração a Análsie da <strong>Falta de Ajuste</strong></p></li>
+<li><p>É importante destacar que vamos empregar uma técnica denominada de Regressão Polinomial, em que é possível ajustar uma equação de grau <em>n</em> do tipo:</p></li>
+</ul>
+<p><span class="math display">\[y_{i}=\beta _{0}+\beta _{1}x_{i}+\beta _{2}x_{i}^2+...+\beta _{n}x_{i}^n+\epsilon\]</span></p>
+<ul>
+<li>A Regressão Polinomial pode ser útil quando existe uma relação não linear clara entre as varáveis.</li>
+</ul>
+<p><strong>Exemplo 2:</strong> Em um experimento no DIC com cinco repetições foram testadas cinco doses de um hormônio vegetal (15, 20, 25, 30 e 35 ppm), e seu efeito na indução de resistência a um inseto praga. A variável resposta indica o número de insetos praga encontrados em cada parcela.</p>
+<ol style="list-style-type: decimal">
+<li>Input de Dados</li>
+</ol>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="regressão-linear.html#cb114-1" tabindex="-1"></a>dados4 <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;dados/reg_2022.txt&quot;</span>, <span class="at">h =</span> T)</span>
+<span id="cb114-2"><a href="regressão-linear.html#cb114-2" tabindex="-1"></a>dados4</span></code></pre></div>
+<pre><code>##    conc resist
+## 1    15      7
+## 2    15      7
+## 3    15     15
+## 4    15     11
+## 5    15      9
+## 6    20     12
+## 7    20     17
+## 8    20     12
+## 9    20     18
+## 10   20     18
+## 11   25     14
+## 12   25     18
+## 13   25     18
+## 14   25     19
+## 15   25     19
+## 16   30     19
+## 17   30     25
+## 18   30     22
+## 19   30     19
+## 20   30     23
+## 21   35      7
+## 22   35     10
+## 23   35     11
+## 24   35     15
+## 25   35     11</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Análise Exploratória</li>
+</ol>
+<ul>
+<li>Por se tratar de um fator quantitativo, podemos fazer uma análise exploratória simples por meio de um gráfico de dispersão</li>
+</ul>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="regressão-linear.html#cb116-1" tabindex="-1"></a><span class="fu">plot</span>(resist <span class="sc">~</span> conc, <span class="at">data =</span> dados4)</span></code></pre></div>
+<p><img src="_main_files/figure-html/graph3-1.png" width="50%" /></p>
+<ul>
+<li>A análise gráfica não parece retratar um modelo linear simples. A distribuição dos dados parece indicar um relação de 2 grau entre as variáveis. As análises estatísticas subsequentes vão nos ajudar a tomar essa decisão.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>ANOVA do Delineamento Experimental</li>
+</ol>
+<ul>
+<li>Como o vetor de tratamentos é numérico, será necessário criar um vetor de fatores auxiliar para a ANOVA</li>
+</ul>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="regressão-linear.html#cb117-1" tabindex="-1"></a>dados4<span class="sc">$</span>concf <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados4<span class="sc">$</span>conc)</span></code></pre></div>
+<ul>
+<li>Na sequência realiza-se a ANOVA, conforme já conhecemos, utilizando o vetor adicional criado</li>
+</ul>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="regressão-linear.html#cb118-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">aov</span>(resist <span class="sc">~</span> concf, <span class="at">data =</span> dados4)</span>
+<span id="cb118-2"><a href="regressão-linear.html#cb118-2" tabindex="-1"></a><span class="fu">anova</span>(mod)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: resist
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## concf      4 475.76  118.94  14.757 9.128e-06 ***
+## Residuals 20 161.20    8.06                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li><p>Com base no resultado, verificamos a significância dos efeitos das doses (p &lt; 0,05), implicando em uma análise de regressão complementar</p></li>
+<li><p>Podemos também realizar a Análise de Resíduos para as pressuposições do modelo:</p></li>
+</ul>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="regressão-linear.html#cb120-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb120-2"><a href="regressão-linear.html#cb120-2" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
+<p><img src="_main_files/figure-html/pres2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="regressão-linear.html#cb121-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">resid</span>(mod))</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(mod)
+## W = 0.94387, p-value = 0.1818</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Análise de Regressão - Modelo de 1° Grau</li>
+</ol>
+<ul>
+<li><p>Teremos que realizar um ajuste simultâneo para os tratamentos e a equação de regressão.</p></li>
+<li><p>O que fazemos aqui é ajustar um modelo de 1° grau incluindo os tratamentos e, em seguida, aplicar uma ANOVA ao modelo.</p></li>
+<li><p>Colocamos o termo adicional <code>dosef</code> para tratamentos</p></li>
+</ul>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="regressão-linear.html#cb123-1" tabindex="-1"></a>ar1 <span class="ot">&lt;-</span> <span class="fu">aov</span> (<span class="fu">lm</span> (resist <span class="sc">~</span> conc <span class="sc">+</span> concf, <span class="at">data =</span> dados4))</span>
+<span id="cb123-2"><a href="regressão-linear.html#cb123-2" tabindex="-1"></a><span class="fu">summary</span>(ar1)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## conc         1   33.6   33.62   4.171   0.0545 .  
+## concf        3  442.1  147.38  18.285 5.97e-06 ***
+## Residuals   20  161.2    8.06                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>Compare o resultado com a ANOVA do Delineamento Experimental
+<ul>
+<li>Inicialmente temos quatro graus de liberdade para tratamentos</li>
+<li>A fonte de variação <code>dose</code>corresponde ao modelo de 1° Grau e consome um grau de liberdade dos tratamentos</li>
+<li>A fonte de variação <code>dosef</code>corresponde ao que chamamos de <strong>Falta de Ajuste</strong> (ou Desvios de Regressão) e constitue os graus de liberdade restantes</li>
+<li>Veja que as Somas de Quadrados também podem ser somadas, indicando uma decomposição ortogonal</li>
+</ul></li>
+<li>Veja que o teste F para <code>dose</code> não é significativo a 5%. Isso indica que o modelo de 1° Grau não é adequado</li>
+<li>Além disso, o teste F para a Falta de Ajuste é significativo, ou seja, existe variação não captada pelo modelo de 1° Grau</li>
+<li>Sendo assim, convém testar o modelo de 2° Grau</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>Análise de Regressão - Modelo de 2° Grau</li>
+</ol>
+<p>Nesse caso, vamos ajustar um modelo do tipo:</p>
+<p><span class="math display">\[y_{i}=\beta _{0}+\beta _{1}x_{i}+\beta _{2}x_{i}^2+\epsilon\]</span></p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="regressão-linear.html#cb125-1" tabindex="-1"></a>ar2 <span class="ot">&lt;-</span> <span class="fu">aov</span> (<span class="fu">lm</span> (resist <span class="sc">~</span> conc <span class="sc">+</span> <span class="fu">I</span>(conc<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> concf, <span class="at">data =</span> dados4)) <span class="co"># I(conc^2) corresponde ao termo quadrático</span></span>
+<span id="cb125-2"><a href="regressão-linear.html#cb125-2" tabindex="-1"></a><span class="fu">summary</span>(ar2)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## conc         1   33.6    33.6   4.171  0.05452 .  
+## I(conc^2)    1  343.2   343.2  42.582 2.33e-06 ***
+## concf        2   98.9    49.5   6.137  0.00835 ** 
+## Residuals   20  161.2     8.1                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>Embora o termo quadrático incluso no modelo apresente significância (p &lt; 0,05), indicando um bom ajuste, percebe-se que a Falta de Ajuste ainda é singificativa.</li>
+<li>Além disso, temos graus de liberdade suficiente para testar um modelo de 3° Grau</li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li>Análise de Regressão - Modelo de 3° Grau</li>
+</ol>
+<p>Vamos ajustar um modelo do tipo:</p>
+<p><span class="math display">\[y_{i}=\beta _{0}+\beta _{1}x_{i}+\beta _{2}x_{i}^2+\beta _{3}x_{i}^3+\epsilon\]</span></p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="regressão-linear.html#cb127-1" tabindex="-1"></a>ar3 <span class="ot">&lt;-</span> <span class="fu">aov</span> (<span class="fu">lm</span> (resist <span class="sc">~</span> conc <span class="sc">+</span> <span class="fu">I</span>(conc<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(conc<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> concf, <span class="at">data =</span> dados4)) <span class="co"># I(dose^3) corresponde ao termo cúbico</span></span>
+<span id="cb127-2"><a href="regressão-linear.html#cb127-2" tabindex="-1"></a><span class="fu">summary</span>(ar3)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## conc         1   33.6    33.6   4.171   0.0545 .  
+## I(conc^2)    1  343.2   343.2  42.582 2.33e-06 ***
+## I(conc^3)    1   65.0    65.0   8.062   0.0101 *  
+## concf        1   33.9    33.9   4.212   0.0535 .  
+## Residuals   20  161.2     8.1                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li><p>Veja que a inclusão do termo cúbico foi significativa, indicando um bom ajuste.</p></li>
+<li><p>Além disso, a Falta de Ajuste já não é significativa!</p></li>
+<li><p>Portanto, temos um modelo bastante consistente.</p></li>
+<li><p>Para concluir a análise, vamos obter a equação ajustada e os seus coeficientes utilizando a função <code>lm</code> da forma convencional, sem incluir os efeitos de tratamentos:</p></li>
+</ul>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="regressão-linear.html#cb129-1" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span> (resist <span class="sc">~</span> conc <span class="sc">+</span> <span class="fu">I</span>(conc<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(conc<span class="sc">^</span><span class="dv">3</span>), <span class="at">data =</span> dados4)</span>
+<span id="cb129-2"><a href="regressão-linear.html#cb129-2" tabindex="-1"></a><span class="fu">summary</span>(reg3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = resist ~ conc + I(conc^2) + I(conc^3), data = dados4)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.4686 -1.4686 -0.4686  2.6457  4.8886 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept) 62.611429  39.757436   1.575   0.1302  
+## conc        -9.011429   5.196609  -1.734   0.0976 .
+## I(conc^2)    0.481429   0.216046   2.228   0.0369 *
+## I(conc^3)   -0.007600   0.002874  -2.644   0.0152 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.048 on 21 degrees of freedom
+## Multiple R-squared:  0.6936, Adjusted R-squared:  0.6499 
+## F-statistic: 15.85 on 3 and 21 DF,  p-value: 1.295e-05</code></pre>
+<ul>
+<li>Temos que ficar atentos a esta saída no R:
+<ul>
+<li>Os coeficientes são estimados adequadamente e os teste de significância estão corretos. Dessa forma a equação ajustada é:</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[y=62.612-9.011x+0.481x^2-0.007x^3\]</span></p>
+<pre><code>- Porém, as estimativas do R^2^ e a estasítica F não correspondem ao cenário ideal!
+- Isso ocorre porque o termo da Falta de Ajuste é incluído no Erro Experimental.
+- Além disso, temso que ficar atentos ao R^2^ calculado. A saída do `summary`nesse caso não seria a mais correta.
+- No caso de dados com repetição o R^2^ mais adequado é:</code></pre>
+<p><span class="math display">\[R^{2}= \frac{SQReg}{SQTrat}=1-\frac{SQFA}{SQTrat}\]</span></p>
+<ul>
+<li>Sendo assim, temos:</li>
+</ul>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="regressão-linear.html#cb132-1" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="fl">33.9</span><span class="sc">/</span><span class="fl">475.76</span>)</span>
+<span id="cb132-2"><a href="regressão-linear.html#cb132-2" tabindex="-1"></a>R2</span></code></pre></div>
+<pre><code>## [1] 0.9287456</code></pre>
+<ul>
+<li>Finalmente, podemos fazer um gráfico e adicionar a nossa curva de regressão mais adequada:</li>
+</ul>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="regressão-linear.html#cb134-1" tabindex="-1"></a><span class="fu">ggplot</span>(dados4, <span class="fu">aes</span>(conc, resist)) <span class="sc">+</span></span>
+<span id="cb134-2"><a href="regressão-linear.html#cb134-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb134-3"><a href="regressão-linear.html#cb134-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&#39;lm&#39;</span>, <span class="at">se=</span><span class="cn">TRUE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>)) <span class="sc">+</span></span>
+<span id="cb134-4"><a href="regressão-linear.html#cb134-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;conc&quot;</span>, <span class="at">y=</span><span class="st">&quot;resist&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/graph4-1.png" width="50%" /></p>
+<p>Embora tenhamos empregado um certo esforço para compreender o uso da Regressão Polinomial no contexto de um delineamento experimental, é possível trabalhar de forma bastante simplificada através do pacote <code>Pacote ExpDes.pt</code></p>
+<p>Veja abaixo como isso se torna mais simples, embora os conceitos e a interpretação dos resultados permanece a mesma!</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="regressão-linear.html#cb135-1" tabindex="-1"></a><span class="co">#install.packages(&quot;ExpDes.pt&quot;)</span></span>
+<span id="cb135-2"><a href="regressão-linear.html#cb135-2" tabindex="-1"></a><span class="fu">library</span>(ExpDes.pt)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;ExpDes.pt&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:agricolae&#39;:
+## 
+##     lastC, order.group, tapply.stat</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="regressão-linear.html#cb138-1" tabindex="-1"></a><span class="fu">dic</span>(dados4<span class="sc">$</span>conc, dados4<span class="sc">$</span>resist, <span class="at">quali=</span><span class="cn">FALSE</span>) <span class="co"># Muito simples!</span></span></code></pre></div>
+<pre><code>## ------------------------------------------------------------------------
+## Quadro da analise de variancia
+## ------------------------------------------------------------------------
+##            GL     SQ     QM     Fc      Pr&gt;Fc
+## Tratamento  4 475.76 118.94 14.757 9.1279e-06
+## Residuo    20 161.20   8.06                  
+## Total      24 636.96                         
+## ------------------------------------------------------------------------
+## CV = 18.88 %
+## 
+## ------------------------------------------------------------------------
+## Teste de normalidade dos residuos ( Shapiro-Wilk ) 
+## Valor-p:  0.1817575 
+## De acordo com o teste de Shapiro-Wilk a 5% de significancia, os residuos podem ser considerados normais.
+## ------------------------------------------------------------------------
+## 
+## ------------------------------------------------------------------------
+## Teste de homogeneidade de variancia 
+## valor-p:  0.9197662 
+## De acordo com o teste de bartlett a 5% de significancia, as variancias podem ser consideradas homogeneas.
+## ------------------------------------------------------------------------
+## 
+## Ajuste de modelos polinomiais de regressao
+## ------------------------------------------------------------------------
+## 
+## Modelo Linear
+## ========================================
+##    Estimativa Erro.padrao   tc   valor.p
+## ----------------------------------------
+## b0  10.9400     2.0862    5.2439 0.00004
+## b1   0.1640     0.0803    2.0424 0.0545 
+## ----------------------------------------
+## 
+## R2 do modelo linear
+## --------
+## 0.070666
+## --------
+## 
+## Analise de variancia do modelo linear
+## =======================================================
+##                      GL    SQ       QM     Fc   valor.p
+## -------------------------------------------------------
+## Efeito linear        1  33.6200  33.6200  4.17  0.05452
+## Desvios de Regressao 3  442.1400 147.3800 18.29  1e-05 
+## Residuos             20 161.2000  8.0600               
+## -------------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## Modelo quadratico
+## =========================================
+##    Estimativa Erro.padrao   tc    valor.p
+## -----------------------------------------
+## b0  -39.9886    8.0786    -4.9500 0.0001 
+## b1   4.5926     0.6834    6.7203     0   
+## b2  -0.0886     0.0136    -6.5255    0   
+## -----------------------------------------
+## 
+## R2 do modelo quadratico
+## --------
+## 0.792068
+## --------
+## 
+## Analise de variancia do modelo quadratico
+## =======================================================
+##                      GL    SQ       QM     Fc   valor.p
+## -------------------------------------------------------
+## Efeito linear        1  33.6200  33.6200  4.17  0.05452
+## Efeito quadratico    1  343.2143 343.2143 42.58    0   
+## Desvios de Regressao 2  98.9257  49.4629  6.14  0.00835
+## Residuos             20 161.2000  8.0600               
+## -------------------------------------------------------
+## ------------------------------------------------------------------------
+## 
+## Modelo cubico
+## =========================================
+##    Estimativa Erro.padrao   tc    valor.p
+## -----------------------------------------
+## b0  62.6114     37.0268   1.6910  0.1064 
+## b1  -9.0114     4.8397    -1.8620 0.0774 
+## b2   0.4814     0.2012    2.3927  0.0266 
+## b3  -0.0076     0.0027    -2.8394 0.0101 
+## -----------------------------------------
+## 
+## R2 do modelo cubico
+## --------
+## 0.928649
+## --------
+## 
+## Analise de variancia do modelo cubico
+## =======================================================
+##                      GL    SQ       QM     Fc   valor.p
+## -------------------------------------------------------
+## Efeito linear        1  33.6200  33.6200  4.17  0.05452
+## Efeito quadratico    1  343.2143 343.2143 42.58    0   
+## Efeito cubico        1  64.9800  64.9800  8.06  0.01013
+## Desvios de Regressao 1  33.9457  33.9457  4.21  0.05347
+## Residuos             20 161.2000  8.0600               
+## -------------------------------------------------------
+## ------------------------------------------------------------------------</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="contrastes-tcm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="experimentos-fatoriais.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-regressao-linear.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

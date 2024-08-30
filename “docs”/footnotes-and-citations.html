@@ -4,40 +4,34 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Footnotes and citations | Apostila de Estatistica Experimental</title>
-  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <title>Capítulo 5 Footnotes and citations | Apostila de Estatistica Experimental</title>
+  <meta name="description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Footnotes and citations | Apostila de Estatistica Experimental" />
+  <meta property="og:title" content="Capítulo 5 Footnotes and citations | Apostila de Estatistica Experimental" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta property="og:description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Footnotes and citations | Apostila de Estatistica Experimental" />
+  <meta name="twitter:title" content="Capítulo 5 Footnotes and citations | Apostila de Estatistica Experimental" />
   
-  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="twitter:description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
   
 
 <meta name="author" content="Pedro Ivo" />
 
 
-<meta name="date" content="2024-08-09" />
+<meta name="date" content="2024-08-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="parts.html"/>
-<link rel="next" href="blocks.html"/>
+<link rel="prev" href="delineamento-em-blocos-casualizados.html"/>
+<link rel="next" href="regressão-linear.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -129,29 +123,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -169,41 +140,100 @@ div.csl-indent {
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução a Estatistica Experimental</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#porque-utilizar-a-estatistica-no-dia-a-dia"><i class="fa fa-check"></i><b>1.1</b> Porque utilizar a Estatistica no dia a dia</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#a-disciplina-de-estatistica"><i class="fa fa-check"></i><b>1.2</b> A disciplina de estatistica</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="hello-bookdown.html"><a href="hello-bookdown.html"><i class="fa fa-check"></i><b>2</b> Hello bookdown</a>
+<li class="chapter" data-level="2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html"><i class="fa fa-check"></i><b>2</b> Teste t Para Duas Médias</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="hello-bookdown.html"><a href="hello-bookdown.html#a-section"><i class="fa fa-check"></i><b>2.1</b> A section</a>
+<li class="chapter" data-level="2.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-de-student-para-dois-grupos-ou-médias-independentes"><i class="fa fa-check"></i><b>2.1</b> Teste t de Student para dois grupos ou médias independentes</a></li>
+<li class="chapter" data-level="2.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#a.variâncias-homocedásticas"><i class="fa fa-check"></i><b>2.2</b> A.Variâncias Homocedásticas</a>
 <ul>
-<li class="chapter" data-level="" data-path="hello-bookdown.html"><a href="hello-bookdown.html#an-unnumbered-section"><i class="fa fa-check"></i>An unnumbered section</a></li>
+<li class="chapter" data-level="2.2.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#análise-exploratória"><i class="fa fa-check"></i><b>2.2.1</b> Análise Exploratória</a></li>
+<li class="chapter" data-level="2.2.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-box-plot"><i class="fa fa-check"></i><b>2.2.2</b> Gráfico Box-Plot</a></li>
+<li class="chapter" data-level="2.2.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#pressuposição-de-normalidade"><i class="fa fa-check"></i><b>2.2.3</b> Pressuposição de Normalidade</a></li>
+<li class="chapter" data-level="2.2.4" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-de-homogeneidade-das-variâncias"><i class="fa fa-check"></i><b>2.2.4</b> Teste de Homogeneidade das Variâncias</a></li>
+<li class="chapter" data-level="2.2.5" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-para-variâncias-homocedásticas"><i class="fa fa-check"></i><b>2.2.5</b> Teste t para variâncias homocedásticas</a></li>
+<li class="chapter" data-level="2.2.6" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-do-teste-t"><i class="fa fa-check"></i><b>2.2.6</b> Gráfico do teste t</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#b.-variâncias-heterocedásticas"><i class="fa fa-check"></i><b>2.3</b> B. Variâncias Heterocedásticas</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#análise-exploratória-1"><i class="fa fa-check"></i><b>2.3.1</b> Análise Exploratória</a></li>
+<li class="chapter" data-level="2.3.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-box-plot-1"><i class="fa fa-check"></i><b>2.3.2</b> Gráfico Box-Plot</a></li>
+<li class="chapter" data-level="2.3.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#pressuposição-de-normalidade-1"><i class="fa fa-check"></i><b>2.3.3</b> Pressuposição de Normalidade</a></li>
+<li class="chapter" data-level="2.3.4" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-de-homogeneidade-das-variâncias-1"><i class="fa fa-check"></i><b>2.3.4</b> Teste de Homogeneidade das Variâncias</a></li>
+<li class="chapter" data-level="2.3.5" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-para-variâncias-heterocedásticas"><i class="fa fa-check"></i><b>2.3.5</b> Teste t para variâncias heterocedásticas</a></li>
+<li class="chapter" data-level="2.3.6" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-do-teste-t-1"><i class="fa fa-check"></i><b>2.3.6</b> Gráfico do teste t</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>3</b> Cross-references</a>
+<li class="chapter" data-level="3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html"><i class="fa fa-check"></i><b>3</b> ANOVA - Delineamento Inteiramento Casualizado</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="cross.html"><a href="cross.html#chapters-and-sub-chapters"><i class="fa fa-check"></i><b>3.1</b> Chapters and sub-chapters</a></li>
-<li class="chapter" data-level="3.2" data-path="cross.html"><a href="cross.html#captioned-figures-and-tables"><i class="fa fa-check"></i><b>3.2</b> Captioned figures and tables</a></li>
+<li class="chapter" data-level="3.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#introdução"><i class="fa fa-check"></i><b>3.1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#interpretação"><i class="fa fa-check"></i><b>3.1.1</b> Interpretação</a></li>
+<li class="chapter" data-level="3.1.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#dados"><i class="fa fa-check"></i><b>3.1.2</b> Dados</a></li>
+<li class="chapter" data-level="3.1.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#input-de-dados"><i class="fa fa-check"></i><b>3.1.3</b> Input de Dados</a></li>
+<li class="chapter" data-level="3.1.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#estrutura-do-data-frame"><i class="fa fa-check"></i><b>3.1.4</b> Estrutura do Data-Frame</a></li>
+<li class="chapter" data-level="3.1.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-gráfica-exploratória"><i class="fa fa-check"></i><b>3.1.5</b> Análise Gráfica Exploratória</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
+<li class="chapter" data-level="3.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico"><i class="fa fa-check"></i><b>3.2</b> Modelo Estatístico</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico-1"><i class="fa fa-check"></i><b>3.2.1</b> Modelo Estatístico (1)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico-2"><i class="fa fa-check"></i><b>3.2.2</b> Modelo Estatístico (2)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância"><i class="fa fa-check"></i><b>3.3</b> Análise de Variância</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-1"><i class="fa fa-check"></i><b>3.3.1</b> Análise de Variância (1)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-2"><i class="fa fa-check"></i><b>3.3.2</b> Análise de Variância (2)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-3"><i class="fa fa-check"></i><b>3.3.3</b> Análise de Variância (3)</a></li>
+<li class="chapter" data-level="3.3.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-4"><i class="fa fa-check"></i><b>3.3.4</b> Análise de Variância (4)</a></li>
+<li class="chapter" data-level="3.3.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-5"><i class="fa fa-check"></i><b>3.3.5</b> Análise de Variância (5)</a></li>
+<li class="chapter" data-level="3.3.6" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-6"><i class="fa fa-check"></i><b>3.3.6</b> Análise de Variância (6)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições"><i class="fa fa-check"></i><b>3.4</b> Análise das Pressuposições</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-1"><i class="fa fa-check"></i><b>3.4.1</b> Análise das Pressuposições (1)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-2"><i class="fa fa-check"></i><b>3.4.2</b> Análise das Pressuposições (2)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-3"><i class="fa fa-check"></i><b>3.4.3</b> Análise das Pressuposições (3)</a></li>
+<li class="chapter" data-level="3.4.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-4"><i class="fa fa-check"></i><b>3.4.4</b> Análise das Pressuposições (4)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#coeficiente-de-variação-experimental"><i class="fa fa-check"></i><b>3.5</b> Coeficiente de Variação Experimental</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html"><i class="fa fa-check"></i><b>4</b> Delineamento em Blocos Casualizados</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#introdução-1"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
+<li class="chapter" data-level="4.2" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#casualização-em-dbc"><i class="fa fa-check"></i><b>4.2</b> Casualização em DBC</a></li>
+<li class="chapter" data-level="4.3" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#modelo-estatístico-3"><i class="fa fa-check"></i><b>4.3</b> Modelo Estatístico</a></li>
+<li class="chapter" data-level="4.4" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#análise-de-variância-7"><i class="fa fa-check"></i><b>4.4</b> Análise de Variância</a></li>
+<li class="chapter" data-level="4.5" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#análise-no-r"><i class="fa fa-check"></i><b>4.5</b> Análise no R</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
-<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
+<li class="chapter" data-level="6" data-path="regressão-linear.html"><a href="regressão-linear.html"><i class="fa fa-check"></i><b>6</b> Regressão Linear</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>6.1</b> Equations</a></li>
-<li class="chapter" data-level="6.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>6.2</b> Theorems and proofs</a></li>
-<li class="chapter" data-level="6.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>6.3</b> Callout blocks</a></li>
+<li class="chapter" data-level="6.1" data-path="regressão-linear.html"><a href="regressão-linear.html#regressão-linear-simples"><i class="fa fa-check"></i><b>6.1</b> Regressão Linear Simples</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="regressão-linear.html"><a href="regressão-linear.html#observação-única-para-cada-nível-da-variável-x"><i class="fa fa-check"></i><b>6.1.1</b> Observação única para cada nível da variável X</a></li>
+<li class="chapter" data-level="6.1.2" data-path="regressão-linear.html"><a href="regressão-linear.html#mais-de-uma-observação-repetições-para-cada-nível-da-variável-x"><i class="fa fa-check"></i><b>6.1.2</b> Mais de uma observação (repetições) para cada nível da variável X</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>7</b> Sharing your book</a>
+</ul></li>
+<li class="chapter" data-level="7" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html"><i class="fa fa-check"></i><b>7</b> Experimentos Fatoriais</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>7.1</b> Publishing</a></li>
-<li class="chapter" data-level="7.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>7.2</b> 404 pages</a></li>
-<li class="chapter" data-level="7.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>7.3</b> Metadata for sharing</a></li>
+<li class="chapter" data-level="7.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#introdução-2"><i class="fa fa-check"></i><b>7.1</b> Introdução</a></li>
+<li class="chapter" data-level="7.2" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#tipos-de-efeitos"><i class="fa fa-check"></i><b>7.2</b> Tipos de Efeitos</a></li>
+<li class="chapter" data-level="7.3" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#casualização-em-experimentos-fatoriais"><i class="fa fa-check"></i><b>7.3</b> Casualização em Experimentos Fatoriais</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#outros-gráficos"><i class="fa fa-check"></i><b>7.3.1</b> Outros Gráficos!</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#efeito-do-teor-de-celulose-na-resistência-à-tração-em-embalagens-de-papel"><i class="fa fa-check"></i><b>7.4</b> Efeito do teor de celulose na resistência à tração em embalagens de papel</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#introdução-3"><i class="fa fa-check"></i><b>7.4.1</b> Introdução</a></li>
+<li class="chapter" data-level="7.4.2" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#materiais-e-métodos"><i class="fa fa-check"></i><b>7.4.2</b> Materiais e Métodos</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -227,42 +257,19 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="footnotes-and-citations" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Footnotes and citations<a href="footnotes-and-citations.html#footnotes-and-citations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Capítulo 5</span> Footnotes and citations<a href="footnotes-and-citations.html#footnotes-and-citations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="footnotes" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Footnotes<a href="footnotes-and-citations.html#footnotes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Footnotes are put inside the square brackets after a caret <code>^[]</code>. Like this one <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
-</div>
-<div id="citations" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Citations<a href="footnotes-and-citations.html#citations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Reference items in your bibliography file(s) using <code>@key</code>.</p>
-<p>For example, we are using the <strong>bookdown</strong> package <span class="citation">(<a href="#ref-R-bookdown">Xie 2024</a>)</span> (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(<a href="#ref-xie2015">Xie 2015</a>)</span> (this citation was added manually in an external file book.bib).
-Note that the <code>.bib</code> files need to be listed in the index.Rmd with the YAML <code>bibliography</code> key.</p>
-<p>The RStudio Visual Markdown Editor can also make it easier to insert citations: <a href="https://rstudio.github.io/visual-markdown-editing/#/citations" class="uri">https://rstudio.github.io/visual-markdown-editing/#/citations</a></p>
 
 </div>
-</div>
-<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-xie2015" class="csl-entry">
-Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.
-</div>
-<div id="ref-R-bookdown" class="csl-entry">
-———. 2024. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>This is a footnote.<a href="footnotes-and-citations.html#fnref1" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="parts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="blocks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="delineamento-em-blocos-casualizados.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regressão-linear.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -293,7 +300,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-citations.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-contrastes-tcm.Rmd",
 "text": "Edit"
 },
 "history": {

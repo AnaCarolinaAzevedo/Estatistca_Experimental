@@ -8,53 +8,28 @@ bibliography: [book.bib, packages.bib]
 # url: your book url like https://bookdown.org/yihui/bookdown
 # cover-image: path to the social sharing image like images/cover.jpg
 description: |
-  This is a minimal example of using the bookdown package to write a book.
-  The HTML output format for this example is bookdown::gitbook,
-  set in the _output.yml file.
+  Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal.
 link-citations: yes
 github-repo: rstudio/bookdown-demo
 ---
 
-# About
+# Introdução a Estatistica Experimental 
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a math equation $a^2 + b^2 = c^2$.
+A Estatística Experimental é essencial para cientistas, pesquisadores e profissionais de diversas áreas planejadas, conduzidas e analisadas em experimentos de maneira sistemática e objetiva. O objetivo central dessa disciplina consiste em compreender a variabilidade natural dos dados ao extrair insights válidos provenientes desses experimentos, o que garanta decisões embasadas em evidências confiáveis.
 
-## Usage 
+Nos experimentos, atua desde o planejamento, onde se define o desenho experimental mais adequado, até a análise e interpretação dos resultados. Isso envolve a aplicação de técnicas que ajudam a identificar padrões, testar hipóteses e quantificar a incerteza relacionada às dúvidas. Em suma, é uma ferramenta indispensável para qualquer investigação científica que busque resultados precisos e replicáveis.
 
-Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading.
+## Porque utilizar a Estatistica no cotidiano 
 
-Use second-level and higher headings within chapters like: `## A short section` or `### An even shorter section`.
+ A utilização da Estatística na nossa vida cotidiana permite-nos analisar informações com maior precisão, compreender incertezas específicas dos dados e evitar implicações precipitadas baseadas em percepções intuitivas ou visões cognitivas. Num mundo onde somos constantemente bombardeados por informação, a Estatística torna-se um escudo contra a desinformação, ajudando-nos a diferenciar entre verdadeiras coincidências e causalidades, suposições e fatos.
 
-The `index.Rmd` file is required, and is also your first book chapter. It will be the homepage when you render the book.
+Além disso, na esfera empresarial, a utilização da Estatística é necessária para maximizar os processos operacionais, garantir o controle de qualidade ao público-alvo e realizar pesquisas mercadológicas, além de estimar análises preditivas que fornecem orientações estratégicas. Em síntese, ela proporciona instrumentos mais precisos para tomadas de decisão otimizadas para melhorar os resultados corporativos, sobretudo no sentido de compreender melhor o mundo com maior profundidade em bases sólidas.
+ 
 
-## Render book
+## Sobre a apostila 
 
-You can render the HTML version of this example book without changing anything:
+Esta apostila foi criada como um recurso didático para auxiliar o ensino de conceitos e técnicas da Estatística Experimental, utilizando a linguagem R como principal ferramenta para análise de dados. O objetivo é oferecer aos estudantes uma compreensão prática e aplicada da Estatística, por meio do uso do R em simulações, visualizações e análises que apresentam exemplos dos conceitos teóricos envolvidos.
 
-1. Find the **Build** pane in the RStudio IDE, and
+Ao longo dos capítulos, os fundamentos da Estatística Experimental são explorados juntamente com métodos avançados de análise. Exemplos práticos em R são fornecidos para ajudar os leitores a visualizar cada etapa envolvida nas técnicas estatísticas e aplicar seus conhecimentos de forma interativa. A combinação de teoria e aplicação prática usando R prepara os estudantes para problemas experimentais do mundo real, promovendo experiências de aprendizagem eficazes e significativas.
 
-1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files.
-
-Or build the book from the R console:
-
-```{r, eval=FALSE}
-bookdown::render_book()
-```
-
-To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>.
-
-## Preview book
-
-As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:
-
-```{r eval=FALSE}
-bookdown::serve_book()
-```
-
-
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
-```
+Este material visa não apenas ensinar Estatística Experimental, mas também capacitar os alunos no uso do R como uma poderosa ferramenta analítica. Incentiva o desenvolvimento de competências analíticas cada vez mais valorizadas em vários campos de investigação e prática profissional.

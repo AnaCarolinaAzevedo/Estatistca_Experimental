@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 ANOVA - Delineamento Inteiramento Casualizado | Apostila de Estatistica Experimental</title>
+  <meta name="description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 ANOVA - Delineamento Inteiramento Casualizado | Apostila de Estatistica Experimental" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 ANOVA - Delineamento Inteiramento Casualizado | Apostila de Estatistica Experimental" />
+  
+  <meta name="twitter:description" content="Esta apostila é um recurso didático desenvolvido para o ensino de conceitos e técnicas de estatística experimental, utilizando a linguagem R como ferramenta principal." />
+  
+
+<meta name="author" content="Pedro Ivo" />
+
+
+<meta name="date" content="2024-08-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="teste-t-para-duas-médias.html"/>
+<link rel="next" href="delineamento-em-blocos-casualizados.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução a Estatistica Experimental</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#porque-utilizar-a-estatistica-no-cotidiano"><i class="fa fa-check"></i><b>1.1</b> Porque utilizar a Estatistica no cotidiano</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#sobre-a-apostila"><i class="fa fa-check"></i><b>1.2</b> Sobre a apostila</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html"><i class="fa fa-check"></i><b>2</b> Teste t Para Duas Médias</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-de-student-para-dois-grupos-ou-médias-independentes"><i class="fa fa-check"></i><b>2.1</b> Teste t de Student para dois grupos ou médias independentes</a></li>
+<li class="chapter" data-level="2.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#a.variâncias-homocedásticas"><i class="fa fa-check"></i><b>2.2</b> A.Variâncias Homocedásticas</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#análise-exploratória"><i class="fa fa-check"></i><b>2.2.1</b> Análise Exploratória</a></li>
+<li class="chapter" data-level="2.2.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-box-plot"><i class="fa fa-check"></i><b>2.2.2</b> Gráfico Box-Plot</a></li>
+<li class="chapter" data-level="2.2.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#pressuposição-de-normalidade"><i class="fa fa-check"></i><b>2.2.3</b> Pressuposição de Normalidade</a></li>
+<li class="chapter" data-level="2.2.4" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-de-homogeneidade-das-variâncias"><i class="fa fa-check"></i><b>2.2.4</b> Teste de Homogeneidade das Variâncias</a></li>
+<li class="chapter" data-level="2.2.5" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-para-variâncias-homocedásticas"><i class="fa fa-check"></i><b>2.2.5</b> Teste t para variâncias homocedásticas</a></li>
+<li class="chapter" data-level="2.2.6" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-do-teste-t"><i class="fa fa-check"></i><b>2.2.6</b> Gráfico do teste t</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#b.-variâncias-heterocedásticas"><i class="fa fa-check"></i><b>2.3</b> B. Variâncias Heterocedásticas</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#análise-exploratória-1"><i class="fa fa-check"></i><b>2.3.1</b> Análise Exploratória</a></li>
+<li class="chapter" data-level="2.3.2" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-box-plot-1"><i class="fa fa-check"></i><b>2.3.2</b> Gráfico Box-Plot</a></li>
+<li class="chapter" data-level="2.3.3" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#pressuposição-de-normalidade-1"><i class="fa fa-check"></i><b>2.3.3</b> Pressuposição de Normalidade</a></li>
+<li class="chapter" data-level="2.3.4" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-de-homogeneidade-das-variâncias-1"><i class="fa fa-check"></i><b>2.3.4</b> Teste de Homogeneidade das Variâncias</a></li>
+<li class="chapter" data-level="2.3.5" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#teste-t-para-variâncias-heterocedásticas"><i class="fa fa-check"></i><b>2.3.5</b> Teste t para variâncias heterocedásticas</a></li>
+<li class="chapter" data-level="2.3.6" data-path="teste-t-para-duas-médias.html"><a href="teste-t-para-duas-médias.html#gráfico-do-teste-t-1"><i class="fa fa-check"></i><b>2.3.6</b> Gráfico do teste t</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html"><i class="fa fa-check"></i><b>3</b> ANOVA - Delineamento Inteiramento Casualizado</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#introdução"><i class="fa fa-check"></i><b>3.1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#interpretação"><i class="fa fa-check"></i><b>3.1.1</b> Interpretação</a></li>
+<li class="chapter" data-level="3.1.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#dados"><i class="fa fa-check"></i><b>3.1.2</b> Dados</a></li>
+<li class="chapter" data-level="3.1.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#input-de-dados"><i class="fa fa-check"></i><b>3.1.3</b> Input de Dados</a></li>
+<li class="chapter" data-level="3.1.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#estrutura-do-data-frame"><i class="fa fa-check"></i><b>3.1.4</b> Estrutura do Data-Frame</a></li>
+<li class="chapter" data-level="3.1.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-gráfica-exploratória"><i class="fa fa-check"></i><b>3.1.5</b> Análise Gráfica Exploratória</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico"><i class="fa fa-check"></i><b>3.2</b> Modelo Estatístico</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico-1"><i class="fa fa-check"></i><b>3.2.1</b> Modelo Estatístico (1)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico-2"><i class="fa fa-check"></i><b>3.2.2</b> Modelo Estatístico (2)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância"><i class="fa fa-check"></i><b>3.3</b> Análise de Variância</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-1"><i class="fa fa-check"></i><b>3.3.1</b> Análise de Variância (1)</a></li>
+<li class="chapter" data-level="3.3.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-2"><i class="fa fa-check"></i><b>3.3.2</b> Análise de Variância (2)</a></li>
+<li class="chapter" data-level="3.3.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-3"><i class="fa fa-check"></i><b>3.3.3</b> Análise de Variância (3)</a></li>
+<li class="chapter" data-level="3.3.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-4"><i class="fa fa-check"></i><b>3.3.4</b> Análise de Variância (4)</a></li>
+<li class="chapter" data-level="3.3.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-5"><i class="fa fa-check"></i><b>3.3.5</b> Análise de Variância (5)</a></li>
+<li class="chapter" data-level="3.3.6" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-6"><i class="fa fa-check"></i><b>3.3.6</b> Análise de Variância (6)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições"><i class="fa fa-check"></i><b>3.4</b> Análise das Pressuposições</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-1"><i class="fa fa-check"></i><b>3.4.1</b> Análise das Pressuposições (1)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-2"><i class="fa fa-check"></i><b>3.4.2</b> Análise das Pressuposições (2)</a></li>
+<li class="chapter" data-level="3.4.3" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-3"><i class="fa fa-check"></i><b>3.4.3</b> Análise das Pressuposições (3)</a></li>
+<li class="chapter" data-level="3.4.4" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-4"><i class="fa fa-check"></i><b>3.4.4</b> Análise das Pressuposições (4)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="anova---delineamento-inteiramento-casualizado.html"><a href="anova---delineamento-inteiramento-casualizado.html#coeficiente-de-variação-experimental"><i class="fa fa-check"></i><b>3.5</b> Coeficiente de Variação Experimental</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html"><i class="fa fa-check"></i><b>4</b> Delineamento em Blocos Casualizados</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#introdução-1"><i class="fa fa-check"></i><b>4.1</b> Introdução</a></li>
+<li class="chapter" data-level="4.2" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#casualização-em-dbc"><i class="fa fa-check"></i><b>4.2</b> Casualização em DBC</a></li>
+<li class="chapter" data-level="4.3" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#modelo-estatístico-3"><i class="fa fa-check"></i><b>4.3</b> Modelo Estatístico</a></li>
+<li class="chapter" data-level="4.4" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#análise-de-variância-7"><i class="fa fa-check"></i><b>4.4</b> Análise de Variância</a></li>
+<li class="chapter" data-level="4.5" data-path="delineamento-em-blocos-casualizados.html"><a href="delineamento-em-blocos-casualizados.html#análise-no-r"><i class="fa fa-check"></i><b>4.5</b> Análise no R</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="contrastes-tcm.html"><a href="contrastes-tcm.html"><i class="fa fa-check"></i><b>5</b> Contrastes TCM</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="contrastes-tcm.html"><a href="contrastes-tcm.html#introdução-2"><i class="fa fa-check"></i><b>5.1</b> Introdução</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="regressão-linear.html"><a href="regressão-linear.html"><i class="fa fa-check"></i><b>6</b> Regressão Linear</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="regressão-linear.html"><a href="regressão-linear.html#regressão-linear-simples"><i class="fa fa-check"></i><b>6.1</b> Regressão Linear Simples</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="regressão-linear.html"><a href="regressão-linear.html#observação-única-para-cada-nível-da-variável-x"><i class="fa fa-check"></i><b>6.1.1</b> Observação única para cada nível da variável X</a></li>
+<li class="chapter" data-level="6.1.2" data-path="regressão-linear.html"><a href="regressão-linear.html#mais-de-uma-observação-repetições-para-cada-nível-da-variável-x"><i class="fa fa-check"></i><b>6.1.2</b> Mais de uma observação (repetições) para cada nível da variável X</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html"><i class="fa fa-check"></i><b>7</b> Experimentos Fatoriais</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#introdução-3"><i class="fa fa-check"></i><b>7.1</b> Introdução</a></li>
+<li class="chapter" data-level="7.2" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#tipos-de-efeitos"><i class="fa fa-check"></i><b>7.2</b> Tipos de Efeitos</a></li>
+<li class="chapter" data-level="7.3" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#casualização-em-experimentos-fatoriais"><i class="fa fa-check"></i><b>7.3</b> Casualização em Experimentos Fatoriais</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#outros-gráficos"><i class="fa fa-check"></i><b>7.3.1</b> Outros Gráficos!</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#efeito-do-teor-de-celulose-na-resistência-à-tração-em-embalagens-de-papel"><i class="fa fa-check"></i><b>7.4</b> Efeito do teor de celulose na resistência à tração em embalagens de papel</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#introdução-4"><i class="fa fa-check"></i><b>7.4.1</b> Introdução</a></li>
+<li class="chapter" data-level="7.4.2" data-path="experimentos-fatoriais.html"><a href="experimentos-fatoriais.html#materiais-e-métodos"><i class="fa fa-check"></i><b>7.4.2</b> Materiais e Métodos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Apostila de Estatistica Experimental</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="anova---delineamento-inteiramento-casualizado" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> ANOVA - Delineamento Inteiramento Casualizado<a href="anova---delineamento-inteiramento-casualizado.html#anova---delineamento-inteiramento-casualizado" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introdução" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Introdução<a href="anova---delineamento-inteiramento-casualizado.html#introdução" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>O Delineamento Inteiramente Casualizado (DIC) é o de mais simples aplicação</li>
+<li>Utilizado quando temos um único fator em análise e seus diferentes níveis ou grupos (tratamentos)</li>
+<li>Consiste na casualização completa dos tratamentos às unidades experimentais</li>
+<li>Envolve os seguintes princípios experimentais:
+<ul>
+<li>Repetição</li>
+<li>Casualização</li>
+</ul></li>
+<li>Não há blocagem ou controle local pois as unidades experimentais são homogêneas</li>
+</ul>
+<p><strong>Exemplo</strong></p>
+<p>Um fabricante de papel está interessado em melhorar a qualidade do seu produto. A engenharia do produto pensa que a <strong>resistência à tração</strong> seja uma função da <strong>concentração de celulose na madeira</strong> e a que a faixa prática de interesse das concentrações esteja entre 5 e 20%. Um grupo de engenheiros responsáveis pelo estudo decide investigar <strong>quatro níveis de concentração: 5, 10, 15 e 20 %</strong>. Eles decidem fabricar <strong>seis corpos de prova para cada nível de concentração</strong>, usando uma planta piloto. Todos os <strong>24 corpos de prova</strong> são testados, <strong>em uma ordem aleatória</strong>, em um equipamento de teste de laboratório, em que é mensurada a resistência à tração (psi=libra/polegada<sup>2</sup>). Verifique se a concentração de celulose apresenta efeito siginifcativo na resistência à tração (alfa = 5%). Os dados desse experimento são mostrados a seguir.</p>
+<div id="interpretação" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Interpretação<a href="anova---delineamento-inteiramento-casualizado.html#interpretação" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O que nós estamos testando? Qual o objetivo do experimento?</p>
+<ul>
+<li>Verificar o efeito da concentração de celulose da madeira na resistência à tração do papel.
+<ul>
+<li>Concentração de celulose: Variável Independente (1 Fator em estudo)
+<ul>
+<li>Quatro níveis (5, 10, 15 e 20) ou Quatro tratamentos</li>
+<li>Natureza da variável: Quantitativa</li>
+</ul></li>
+<li>Resistência à tração: Variável Resposta (Quantitativa)
+<ul>
+<li>Natureza da variável: Quantitativa</li>
+</ul></li>
+</ul></li>
+<li>Caracterização:
+<ul>
+<li>I = 4 tratamentos</li>
+<li>J = 6 repetições</li>
+<li>N = I*J = 24 unidades experimentais</li>
+</ul></li>
+</ul>
+</div>
+<div id="dados" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Dados<a href="anova---delineamento-inteiramento-casualizado.html#dados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Tabela 1.</strong> Resistência (psi) à tração do papel em função da concentração de madeira de lei (%)</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb51-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;imagens/tabela dic.png&quot;</span>)</span></code></pre></div>
+<p><img src="imagens/tabela%20dic.png" width="100%" /></p>
+</div>
+<div id="input-de-dados" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Input de Dados<a href="anova---delineamento-inteiramento-casualizado.html#input-de-dados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Podemos importar o data set a partir de um documento txt</li>
+<li>Nessa operação vamos criar um data-frame com dois vetores
+<ul>
+<li>conc_%: vetor da variável independente</li>
+<li>r_trac: vetor da variável resposta</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb52-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;dados/ex_01_dic.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-2"><a href="anova---delineamento-inteiramento-casualizado.html#cb52-2" tabindex="-1"></a><span class="fu">head</span>(dados)</span></code></pre></div>
+<pre><code>##   conc trac
+## 1    5    7
+## 2    5    8
+## 3    5   15
+## 4    5   11
+## 5    5    9
+## 6    5   10</code></pre>
+</div>
+<div id="estrutura-do-data-frame" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Estrutura do Data-Frame<a href="anova---delineamento-inteiramento-casualizado.html#estrutura-do-data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Podemos verificar a estrutura do nosso data-frame</li>
+</ul>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb54-1" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    24 obs. of  2 variables:
+##  $ conc: int  5 5 5 5 5 5 10 10 10 10 ...
+##  $ trac: int  7 8 15 11 9 10 12 17 13 18 ...</code></pre>
+<ul>
+<li>Para a ANOVA temos que transformar o vetor da variável independente em fator</li>
+</ul>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb56-1" tabindex="-1"></a>dados<span class="sc">$</span>conc <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados<span class="sc">$</span>conc)</span>
+<span id="cb56-2"><a href="anova---delineamento-inteiramento-casualizado.html#cb56-2" tabindex="-1"></a><span class="fu">str</span> (dados)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    24 obs. of  2 variables:
+##  $ conc: Factor w/ 4 levels &quot;5&quot;,&quot;10&quot;,&quot;15&quot;,..: 1 1 1 1 1 1 2 2 2 2 ...
+##  $ trac: int  7 8 15 11 9 10 12 17 13 18 ...</code></pre>
+</div>
+<div id="análise-gráfica-exploratória" class="section level3 hasAnchor" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> Análise Gráfica Exploratória<a href="anova---delineamento-inteiramento-casualizado.html#análise-gráfica-exploratória" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Histograma da distribuição da variável resposta:</li>
+</ul>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb58-1" tabindex="-1"></a>hist1 <span class="ot">&lt;-</span> <span class="fu">hist</span>(dados<span class="sc">$</span>trac)</span></code></pre></div>
+<p><img src="_main_files/figure-html/hist1-1.png" width="672" /></p>
+<ul>
+<li>Box-Plot da variável resposta em função dos tratamentos</li>
+</ul>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb59-1" tabindex="-1"></a><span class="fu">boxplot</span>(trac <span class="sc">~</span> conc, <span class="at">data=</span> dados)</span></code></pre></div>
+<p><img src="_main_files/figure-html/boxploty-1.png" width="672" /></p>
+<ul>
+<li>Um gráfico dot-plot mais elaborado com base no pacote ggplot2:</li>
+</ul>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb60-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb60-2"><a href="anova---delineamento-inteiramento-casualizado.html#cb60-2" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> conc, <span class="at">y =</span> trac)) <span class="sc">+</span></span>
+<span id="cb60-3"><a href="anova---delineamento-inteiramento-casualizado.html#cb60-3" tabindex="-1"></a>  <span class="fu">geom_dotplot</span>(<span class="at">binaxis =</span> <span class="st">&#39;y&#39;</span>, <span class="at">stackdir =</span> <span class="st">&#39;center&#39;</span>, <span class="at">dotsize =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-4"><a href="anova---delineamento-inteiramento-casualizado.html#cb60-4" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_sdl, <span class="at">fun.args =</span> <span class="fu">list</span>(<span class="at">mult =</span> <span class="dv">1</span>),</span>
+<span id="cb60-5"><a href="anova---delineamento-inteiramento-casualizado.html#cb60-5" tabindex="-1"></a>                 <span class="at">geom =</span> <span class="st">&quot;pointrange&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb60-6"><a href="anova---delineamento-inteiramento-casualizado.html#cb60-6" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/dotplot-1.png" width="672" /></p>
+</div>
+</div>
+<div id="modelo-estatístico" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Modelo Estatístico<a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="modelo-estatístico-1" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Modelo Estatístico (1)<a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>É um modelo linear:</p>
+<p>yij = mu + ti + eij</p></li>
+<li><p>Onde:</p>
+<p>yij = observação da variável resposta para o i-ésimo tratamento e a j-ésima repetição;
+mu = média geral;
+ti = efeito do i-ésimo tratamento;
+eij = erro experimental com a pressuposição eij ~ NID(0; sigma^2)</p></li>
+</ul>
+<p><strong>Significa que vamos decompor as observações (dados coletados) no efeito da média geral, dos tratamentos e do erro experimental</strong></p>
+</div>
+<div id="modelo-estatístico-2" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Modelo Estatístico (2)<a href="anova---delineamento-inteiramento-casualizado.html#modelo-estatístico-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>É um sistema de equações lineares:</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">yij</th>
+<th align="center">=</th>
+<th align="center">mu</th>
+<th align="center">+</th>
+<th align="center">ti</th>
+<th align="center">+</th>
+<th align="center">eij</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">=</td>
+<td align="center">15.96</td>
+<td align="center">+</td>
+<td align="center">-5.96</td>
+<td align="center">+</td>
+<td align="center">-3.00</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">=</td>
+<td align="center">15.96</td>
+<td align="center">+</td>
+<td align="center">-5.96</td>
+<td align="center">+</td>
+<td align="center">-2.00</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">=</td>
+<td align="center">15.96</td>
+<td align="center">+</td>
+<td align="center">-5.96</td>
+<td align="center">+</td>
+<td align="center">5.00</td>
+</tr>
+</tbody>
+</table>
+<p>…</p>
+<p>Veja que:</p>
+<ul>
+<li>mi = mu + ti</li>
+<li>ti = mi - mu</li>
+<li>eij = yij - mi</li>
+</ul>
+</div>
+</div>
+<div id="análise-de-variância" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Análise de Variância<a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="análise-de-variância-1" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Análise de Variância (1)<a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Para resolver o problema da análise de médias para dois ou mais grupos utilizamos a Análise de Variância</p></li>
+<li><p>Vamos testar a hipótese:</p>
+<ul>
+<li>Ho: m1 = m2 = m3 = m4 = mu</li>
+<li>Isso corresponde a dizer que não existe o efeito de tratamentos no modelo e todas as médias são estatisticamente iguais à média geral</li>
+</ul></li>
+<li><p>A hipótese alternativa pode ser dada por:</p>
+<ul>
+<li>Ha: Pelo menos uma média é diferente das demais</li>
+<li>Ou seja, existe influência do efeito de tratamentos no modelo. Pela ANOVA não podemos saber diretamente aonde estão estas diferenças. Mas “algo” está acontecendo em relação aos tratamentos testados</li>
+</ul></li>
+</ul>
+</div>
+<div id="análise-de-variância-2" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Análise de Variância (2)<a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>A técnica da ANOVA é uma decomposição da variância total nas variâncias dos efeitos do modelo. Veja a figura abaixo:</li>
+</ul>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb61-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;imagens/anova.png&quot;</span>)</span></code></pre></div>
+<p><img src="imagens/anova.png" width="100%" /></p>
+<p><strong>Figura.</strong> A técnica da ANOVA consiste em investigar as variâncias do modelo, através de uma descomposição de variâncias. A variância total é relativa à média geral (na figura ‘Grand Mean’). A variância dos tratamentos é a relação entre as médias dos tratamentos (‘Among Group Variance’) e a média geral. A variância residual (devida ao Erro Experiomental) é a variância dentro dos grupos de médias (‘Within Group Variance’), que consiste nos desvios de cada observação em relação à média de cada grupo (ou média de cada tratamento)</p>
+<div id="decomposição-das-somas-de-quadrados-sq" class="section level4 hasAnchor" number="3.3.2.1">
+<h4><span class="header-section-number">3.3.2.1</span> Decomposição das Somas de Quadrados (SQ)<a href="anova---delineamento-inteiramento-casualizado.html#decomposição-das-somas-de-quadrados-sq" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>Sabemos que uma variância pode ser calculada por:</p></li>
+<li><p>S<sup>2</sup> = SQD / gl</p>
+<ul>
+<li>Em que:</li>
+<li>SQD = Soma de Quadrados de Desvios</li>
+<li>gl = Graus de Liberdade</li>
+</ul></li>
+<li><p>Portanto, vamos iniciar a decomposição via Somas de Quadrados (SQ) para cada efeito do modelo:</p></li>
+<li><p>yij = m + ti + eij</p></li>
+<li><p>SQTotal = SQTrat + SQRes</p>
+<ul>
+<li>SQTotal = ∑(yij - mu)<sup>2</sup> (Desvios Quadráticos das observações em relação à média geral)</li>
+<li>SQTrat = J∑(mi - mu)<sup>2</sup> (Desvios Quadráticos das médias de tratamentos em relação à média geral)</li>
+<li>SQRes = ∑(yij - mi)<sup>2</sup> (Desvios Quadráticos das observações em relação às médias de tratamentos)</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb62-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;imagens/sq_figura.png&quot;</span>)</span></code></pre></div>
+<p><img src="imagens/sq_figura.png" width="100%" /></p>
+<p><strong>Figura.</strong> Exemplo de decomposição das Somas de Quadrados de um modelo estatístico no DIC. A Soma de Quadrados do Total (SQTotal) permite calcular os desvios quadráticos entre cada observação (yij) e a média geral (mu). A Soma de Quadrados de Tratamentos (SQTRat), que corresponde a variação entre grupos (Between Groups), consiste em calcular os desvios quadráticos das médias dos tratamentos (mi) e a média geral, permitindo computar a variação devido aos efeitos dos tratmentos. A Soma de Quadrado Residual (Dentro de Grupos) envolve o cálculo dos desvios de cada observação em relação à média dos tratamentos. Estes desvios correspondem à uma estimativa da variação do erro experimental.</p>
+</div>
+</div>
+<div id="análise-de-variância-3" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Análise de Variância (3)<a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>ANOVA é uma decomposição das variâncias do modelo</p></li>
+<li><p>O que é uma variância?</p></li>
+<li><p>S<sup>2</sup> = SQD / gl</p></li>
+<li><p>Já temos as Somas de Quadrados calculadas. Portanto, devemos calcular os Graus de Liberdade (gl) para cada fonte de variação do modelo:</p>
+<ul>
+<li>gl(Total) = I*J - 1 = N - 1 = 24 - 1 = 23</li>
+<li>gl(Trat) = I - 1 = 4 - 1 = 3</li>
+<li>gl(Res) = gl(Res) = gl(Total) - gl(Trat) = 23 - 3 = 20</li>
+</ul></li>
+</ul>
+</div>
+<div id="análise-de-variância-4" class="section level3 hasAnchor" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Análise de Variância (4)<a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Finalmente podemos calcular as variâncias para as fontes de variação do efeitos do modelo.</p></li>
+<li><p>Basta dividir as SQ pelo número de graus de liberdade correspondente:</p></li>
+<li><p>Na ANOVA vamos chamar as variâncias de Quadrados Médios</p>
+<ol style="list-style-type: lower-alpha">
+<li>QMTotal = SQTotal / gl(Total)</li>
+<li>QMTrat = SQTrat / gl(Trat)</li>
+<li>QMRes = SQRes / gl(Res)</li>
+</ol></li>
+<li><p>Agora vamos utilizar o teste F para verificar se a variância dos efeitos de tratamentos (QMTrat) é maior do que a variância resiual ou do erro experimental (QMRes):</p>
+<ul>
+<li>F = QMTrat / QMRes</li>
+</ul></li>
+</ul>
+</div>
+<div id="análise-de-variância-5" class="section level3 hasAnchor" number="3.3.5">
+<h3><span class="header-section-number">3.3.5</span> Análise de Variância (5)<a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>A ANOVA pode ser realizada através de um comando simples no R</li>
+</ul>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb63-1" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">aov</span>(trac <span class="sc">~</span> conc, <span class="at">data =</span> dados) <span class="co"># Ajuste do Modelo</span></span>
+<span id="cb63-2"><a href="anova---delineamento-inteiramento-casualizado.html#cb63-2" tabindex="-1"></a><span class="fu">anova</span>(modelo) <span class="co"># Obter a tabela da ANOVA</span></span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: trac
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## conc       3 382.79 127.597  19.605 3.593e-06 ***
+## Residuals 20 130.17   6.508                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li><p>O F calculado de F = 19,6 indica que o QMTrat (que é a variância dos efeitos dos tratamentos) é 19 vezes maior que o QMRes (Variância do Erro Experimental)</p></li>
+<li><p>Associado a este valor de F, temos o p-valor = 3.593e-06 muito reduzido.</p></li>
+<li><p>Os três asteriscos indicam que estamos rejeitando a hipótese H0 com um alfa próximo de 0% de probabilidade. Entretanto, o ideal é estabelcer um alfa previamente, que é probabildiade de erro tipo I (falso positivo). No exemplo, adimtimos um alfa = 0,05.</p></li>
+<li><p>Logo rejeitamos Ho: m1 = m2 = m3 = m4 = mu</p></li>
+<li><p>Portanto podemos concluir que os efeitos dos tratamentos apresentam uma grande contribuição em relação à variação total e superior aos efeitos do erro experimental.</p></li>
+<li><p>Podemos dizer que os efeitos dos tratamentos (ti) exerce uma influência significativa na resistência à tração e o nosso modelo explica bem a variação dos dados!</p></li>
+<li><p>Uma conclusão textual: “Pode-se verificar que as concetração de celulose na madeira apresenta efeito ‘significativo’ na resistência à tração do papel (alfa = 0,05)”</p></li>
+</ul>
+<div id="interpretação-do-teste-f-na-anova" class="section level4 hasAnchor" number="3.3.5.1">
+<h4><span class="header-section-number">3.3.5.1</span> Interpretação do Teste F na ANOVA<a href="anova---delineamento-inteiramento-casualizado.html#interpretação-do-teste-f-na-anova" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Podemos interpretar o teste F da seguinte forma:</li>
+</ul>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb65-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;imagens/Fvalue1.jpeg&quot;</span>)</span></code></pre></div>
+<p><img src="imagens/Fvalue1.jpeg" width="100%" /></p>
+<p><strong>Figura.</strong> Quando o valor da estatística F = QMTrat/QMRes é baixo, as diferenças entre as médias dos tratamentos são pequenas em relação à variação residual. O ‘tamanho’ dessas diferenças é medido indiretamente pelo QMTrat. Nesse caso, o valor-p &gt; alfa, levando à <strong>não rejeição de H0</strong>. Ou seja, nessas condições experimentais não é possível captar a influência dos tratamentos sobre a variável resposta.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb66-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;imagens/Fvalue2.jpeg&quot;</span>)</span></code></pre></div>
+<p><img src="imagens/Fvalue2.jpeg" width="100%" /></p>
+<p><strong>Figura.</strong> Quando o valor da estatística F = QMTrat/QMRes é alto, as diferenças entre as médias dos tratamentos são grandes em relação à variação residual. Nesse caso, o valor-p &lt; alfa, levando à <strong>rejeição de H0</strong>. Ou seja, nessas condições experimentais é possível captar a influência dos tratamentos sobre a variável resposta, como é o caso do exemplo tabalhado.</p>
+</div>
+</div>
+<div id="análise-de-variância-6" class="section level3 hasAnchor" number="3.3.6">
+<h3><span class="header-section-number">3.3.6</span> Análise de Variância (6)<a href="anova---delineamento-inteiramento-casualizado.html#análise-de-variância-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Podemos explorar de outra forma os resultados, considerando um modelo linear com suas inclinações</li>
+</ul>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb67-1" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(trac <span class="sc">~</span> conc, <span class="at">data =</span> dados) <span class="co"># Modelo Linear com inclinação</span></span>
+<span id="cb67-2"><a href="anova---delineamento-inteiramento-casualizado.html#cb67-2" tabindex="-1"></a><span class="fu">summary</span>(modelo2) <span class="co"># Obter efeitos do modelo</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = trac ~ conc, data = dados)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.667 -2.042  0.000  1.458  5.000 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   10.000      1.041   9.602 6.24e-09 ***
+## conc10         5.667      1.473   3.847 0.001005 ** 
+## conc15         7.000      1.473   4.753 0.000122 ***
+## conc20        11.167      1.473   7.581 2.65e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.551 on 20 degrees of freedom
+## Multiple R-squared:  0.7462, Adjusted R-squared:  0.7082 
+## F-statistic: 19.61 on 3 and 20 DF,  p-value: 3.593e-06</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb69-1" tabindex="-1"></a><span class="fu">anova</span>(modelo2) <span class="co"># Obter a tabela da ANOVA</span></span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: trac
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## conc       3 382.79 127.597  19.605 3.593e-06 ***
+## Residuals 20 130.17   6.508                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+</div>
+<div id="análise-das-pressuposições" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Análise das Pressuposições<a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="análise-das-pressuposições-1" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Análise das Pressuposições (1)<a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Para validar o teste F, temos que estudar as pressuposições do modelo, que estão associadas ao erro experimental ou resíduo:
+<ul>
+<li>eij ~ NID(0;sigma<sup>2</sup>)</li>
+<li>Normalidade dos Resíduos</li>
+<li>Independência dos Erros</li>
+<li>Homogeneidade das Variâncias</li>
+</ul></li>
+</ul>
+</div>
+<div id="análise-das-pressuposições-2" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Análise das Pressuposições (2)<a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Análise Gráfica de Resíduos (ou Análise de Resíduos)</p>
+<ul>
+<li>Para avaliar a homogeneidade das variâncias, utilizamos o gráfico de Valores Ajustados vs Resíduos</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb71-1" tabindex="-1"></a><span class="fu">plot</span>(modelo, <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/anova3-1.png" width="672" /></p>
+<p><strong>Figura.</strong> Neste gráfico podemos observar a dispersão dos valores residuais em relação aos valores ajustados (‘Fited values’). Os valores ajustados são exatamente os valores das médias de tratamentos. Agora, nosso modelo é um modelo de predição, dado apenas por ‘yij = mi’. Nesse gráfico observamos a relação da variância dos resíduos (sigma<sup>2</sup>) para cada tratamento. Se as variâncias do erros são homogêneas, a dispersão dos erros para cada tratamento é próxima.</p>
+<ul>
+<li>Também podemos avaliar essa homogeneidade com base em um box-plot dos resíduos em função dos tratamentos, conforme a figura abaixo:</li>
+</ul>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb72-1" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">resid</span>(modelo)<span class="sc">~</span> conc, <span class="at">data =</span> dados)</span></code></pre></div>
+<p><img src="_main_files/figure-html/boxplot-1.png" width="672" /></p>
+<ul>
+<li>Outra análise gráfica pode ser feita através do gráfico Quantil-Quantil Normal, que verifica a normalidade dos resíduos.</li>
+</ul>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb73-1" tabindex="-1"></a><span class="fu">plot</span>(modelo, <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/qq-1.png" width="672" /></p>
+<p><strong>Figura.</strong> Neste gráfico os valores dos resíduos padronizados devem estar o mais próximo possível da linha teórica da normalidade. Quanto mais próximo, melhor o ajuste à normalidade</p>
+</div>
+<div id="análise-das-pressuposições-3" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Análise das Pressuposições (3)<a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>A análise das pressuposções também pode ser feita através de testes estatísticos:
+<ul>
+<li>Testes para Normalidade dos Resíduos (Teste de Shapiro-wilk)
+<ul>
+<li>H0: eij ~ Normal</li>
+</ul></li>
+<li>Teste de Homogeneidade de Variâncias (Teste de Bartlett)
+<ul>
+<li>H0: Variâncias Homogêneas</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb74-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">resid</span>(modelo))</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(modelo)
+## W = 0.96624, p-value = 0.5757</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb76-1" tabindex="-1"></a><span class="fu">bartlett.test</span>(trac <span class="sc">~</span> conc, <span class="at">data =</span> dados)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  trac by conc
+## Bartlett&#39;s K-squared = 1.1352, df = 3, p-value = 0.7686</code></pre>
+</div>
+<div id="análise-das-pressuposições-4" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Análise das Pressuposições (4)<a href="anova---delineamento-inteiramento-casualizado.html#análise-das-pressuposições-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>O que fazer quando as pressuposições não são atendidas?
+<ol style="list-style-type: decimal">
+<li>Verificar a qualidade dos dados (presença de outliers)</li>
+<li>Testar algum tipo de transformação de dados na variável resposta</li>
+<li>Utilizar um teste não-paramétrico (‘Livre de Pressuposições’)</li>
+<li>Utilizar um Modelo Linear Generalizado para testar outras distribuições de resíduos, além da distribuição Normal (Ex: Binomial, Poisson, Gama, etc.)</li>
+</ol></li>
+<li>Se as violações não são graves, a ANOVA é robusta e o teste F ainda apresenta boas propriedades</li>
+</ul>
+</div>
+</div>
+<div id="coeficiente-de-variação-experimental" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Coeficiente de Variação Experimental<a href="anova---delineamento-inteiramento-casualizado.html#coeficiente-de-variação-experimental" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Permite avaliar a precisão do experiemnto:</p>
+<ul>
+<li>CV = 100 * Raiz(QMRes)/Média Geral</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="anova---delineamento-inteiramento-casualizado.html#cb78-1" tabindex="-1"></a><span class="fu">library</span>(agricolae)</span>
+<span id="cb78-2"><a href="anova---delineamento-inteiramento-casualizado.html#cb78-2" tabindex="-1"></a><span class="fu">cv.model</span>(modelo)</span></code></pre></div>
+<pre><code>## [1] 15.98628</code></pre>
+<ul>
+<li>O CV pode ser interpretado da seguinte forma:
+<ul>
+<li>CV &lt; 10%: Alta precisão expreimental</li>
+<li>10% &lt; CV &lt; 20%: Média precisão experimental</li>
+<li>20% &lt; CV &lt; 30%: Baixa precisão experimental</li>
+<li>CV &gt; 30%: Muito baixa precisão experimental</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="teste-t-para-duas-médias.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="delineamento-em-blocos-casualizados.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-anova-dic.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

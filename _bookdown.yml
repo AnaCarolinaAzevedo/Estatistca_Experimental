@@ -1,5 +1,18 @@
 output_dir: “docs”
 delete_merged_file: true
+output_format: bookdown::gitbook
+
 language:
   ui:
-    chapter_name: "Chapter "
+    chapter_name: "Capítulo "
+
+rmd_files:
+  - index.Rmd
+  - 01-testesdehipoteses.Rmd
+  - 02-anova-dic.Rmd
+  - 03-dbc.Rmd
+  - 04-contrastes-tcm.Rmd  
+  - 05-regressao-linear.Rmd 
+  - 06-fatorial.Rmd  
+  - 07-relatorio.Rmd  
+  - 08-references.Rmd
